@@ -6,4 +6,3 @@ function openGoogleLogin() {
     window.open('/auth/google', 'Google Login', `width=${width},height=${height},top=${top},left=${left}`);
 }
 
-document.getElementById("footer-year").textContent = new Date().getFullYear();

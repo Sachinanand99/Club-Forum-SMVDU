@@ -4,36 +4,41 @@
             <div>
                 <a class="navbar-brand" href="/listings">
                     <img src="/assets/smvdu-logo-400x400.webp" height="48px" width="48px"
-                        class="d-inline-block align-text-top">
+                        class="d-inline-block align-text-bottom">
                 </a>
             </div>
             <div style="margin: auto;">
-                <h3 style="margin: auto;">SMVDU</h3>
+                <div style="margin: auto; font-weight:bold; font-size: 1.5rem;">SMVDU</div>
             </div>
         </div>
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
-        <% if (!currUser){ %>
+        <% if (!currUser) { %>
             <a class="btn btn-success" onclick="openGoogleLogin()"><b>Log in</b></a>
-        <%}%>
-        <%if (currUser){%>
+        <% } %>
+        <% if (currUser) { %>
             <div class="nav-ryt">
                 <div>
                     <button type="button" class="btn btn-secondary create-btn"><i class="fa-solid fa-plus"></i>
                         Create</button>
                 </div>
                 <div class="user-icon dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user" style="color: rgb(30, 48, 80);"></i>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <% if (!currUser.image) { %>
+                            <i class="fa-solid fa-user" style="color: rgb(30, 48, 80);"></i>
+                            <% } else { %>
+                                <img src="<%= currUser.image %>" alt="User Image" class="nav-rounded-circle"
+                                    height="22px" width="22px">
+                            <% } %>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
-        <%}%>
-        
+        <% } %>
     </div>
 </nav>

@@ -14,6 +14,10 @@ nav .nav-ryt{
     display: flex;
 }
 
+nav .nav-ryt .nav-rounded-circle{
+    border-radius: 50%;
+}
+
 nav .nav-ryt .create-btn{
     margin: 0 14px 0 0;
 }
@@ -41,7 +45,6 @@ footer{
     color: grey;
     display: flex;
     justify-content: space-around;
-
 }
 
 footer a{
