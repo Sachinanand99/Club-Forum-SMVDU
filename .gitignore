@@ -2,5 +2,5 @@
 node_modules
 todo
 notes.txt
-
+yarn.lock
 package-lock.json
