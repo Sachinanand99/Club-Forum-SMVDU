@@ -21,8 +21,9 @@
         <% if (currUser) { %>
             <div class="nav-ryt">
                 <div>
-                    <button type="button" class="btn btn-secondary create-btn"><i class="fa-solid fa-plus"></i>
-                        Create</button>
+                    <button type="button" class="btn btn-secondary create-btn" onclick="window.location.replace('/clubs')">
+                        Clubs
+                    </button>
                 </div>
                 <div class="user-icon dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -35,7 +36,10 @@
                             <% } %>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/clubs/new">Create Club</a></li>
+                    </ul>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
                     </ul>
                 </div>
             </div>

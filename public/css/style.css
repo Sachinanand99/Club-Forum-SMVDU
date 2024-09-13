@@ -1,4 +1,8 @@
 /* navbar */
+nav{
+    padding: 0px !important;
+}
+
 nav .container-fluid{
     border-bottom: 1px solid grey;
     -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
@@ -35,6 +39,10 @@ body {
 
 .container {
     flex: 1;
+    padding: 0px !important;
+    margin: 0px !important;
+    align-items: center;
+    width: 100vw !important;
 }
 
 /* footer */
@@ -71,7 +79,6 @@ footer .fa-brands{
     background: white;
     padding: 50px;
     border-radius: 10px;
-    /* box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1); */
     box-shadow: 0 6px 6px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -95,3 +102,9 @@ footer .fa-brands{
     background-color: #357ae8;
 }
 
+/* clubs main index */
+.club-index-v1{
+    height: 100vh;
+    width: 100vh;
+    background-image: url("../assets/club-index-v1.webp");
+}
