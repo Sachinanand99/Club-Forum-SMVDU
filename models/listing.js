@@ -23,18 +23,6 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  category: {
-    type: String,
-    enum: ["Hostel", "School", "Mess"],
-  },
-  upVote: {
-    type: Number,
-    default: 0,
-  },
-  downVote: {
-    type: Number,
-    default: 0,
-  },
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

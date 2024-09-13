@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") %>
+
+<div>
+    <div class="club-index-v1">
+        <div class="title">CLUBS, SMVDU</div>
+        <div class="title-info">A club is an association of people united by a common interest or goal. A service club, for example, exists for
+        voluntary or charitable activities. There are clubs devoted to hobbies and sports, social activities clubs, political
+        and religious clubs, and so forth.</div>
+        <button>Start Exploring</button>
+    </div>
+    <div class="club-index-v2">
+        <div class="title">SMVDU CLUBS</div>
+        <% for (let club of allClubs) { %>
+            <div>
+                <!-- <img src="<%= club.image.url %>"></img> -->
+            </div>
+            <div><%= club.title %></div>
+            <a href="/clubs/<%= club._id %>">link</a>
+        <% } %>
+    </div>
+</div>

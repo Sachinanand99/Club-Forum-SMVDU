@@ -66,6 +66,7 @@ const sessionOptions = {
 
 const User = require("./models/user")
 
+
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -86,9 +87,10 @@ passport.use(
         image: profile.photos[0].value,
         email: profile.emails[0].value,
       };
+      console.log(newUser);
       try {
         let user = await User.findOne({ googleId: profile.id });
-
+        
         if (user) {
           done(null, user);
         } else {
@@ -124,70 +126,22 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// route
+// home route
 app.get("/", (req, res) => {
-    res.redirect("/listings");
+  res.redirect("/clubs");
 })
 
-// listings
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/auth");
-}
+// listing route
+const listingRouter = require("./routes/listing");
+app.use("/listings", listingRouter);
 
-const Listing = require("./models/listing");
-
-app.get("/listings", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
-});
+// listing of clubs
+const clubRouter = require("./routes/club")
+app.use("/clubs", clubRouter);
 
 // user signup or login
-function blockAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/listings");
-  }
-  next();
-}
-
-app.get("/auth", blockAuthenticated, async (req, res) => {
-  res.render("users/login.ejs");
-})
-
-app.get("/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/auth",
-    failureFlash: true,
-  }),
-  (req, res) => {
-    req.flash("success", "Successfully logged in!");
-    res.send(`
-      <script>
-        window.opener.location.href = '/listings';
-        window.close();
-      </script>
-    `);
-  }
-);
-
-app.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      req.flash("error", "Error logging out. Please try again.");
-      return next(err);
-    }
-    req.flash("success", "Successfully logged out!");
-    res.redirect("/");
-  });
-});
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter)
 
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
