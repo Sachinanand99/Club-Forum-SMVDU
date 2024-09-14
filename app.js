@@ -87,7 +87,6 @@ passport.use(
         image: profile.photos[0].value,
         email: profile.emails[0].value,
       };
-      console.log(newUser);
       try {
         let user = await User.findOne({ googleId: profile.id });
         
@@ -143,6 +142,6 @@ app.use("/clubs", clubRouter);
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter)
 
-app.listen(8080, () => {
+app.listen(8080, '0.0.0.0', () => {
   console.log("server is listening to port 8080");
 });
