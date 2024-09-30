@@ -10,32 +10,28 @@ navbar design
 footer design
 design boilerplate of website in ejs
 login route
-signup only with university email (otp), google cloud api
+signup only with university google cloud api
 backend
 login page template
 
 3.
 navbar redesign
-(done)
-create listing template
-merge with backend
+create clubs route and perform crud on club.
+create clubs templates.
 
 4.
-create new listing edit listing template
+create listing route and perform crud on listing.
 merge with backend
 
 5.
-add comment feature
+add comment feature perform crud on comment.
 merge with backend
 
 6.
-create routing and middleware for project distribution for readablility
+add search feature for searching club and listing.
 
 7.
-design the website more beautifully and do some testing and add some more roles
+fix bugs.
 
-8. 
-create filters based on tags
-
-9.
-modify the complaint forum to forum website
+8.
+deploy

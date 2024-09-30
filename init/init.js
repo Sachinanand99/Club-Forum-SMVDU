@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const initData = require("./data.js");
-const Listing = require("../models/listing.js");
+const Clubs = require("../models/club.js");
 
-const MONGO_URL = "mongodb://localhost:27017/complaintforum";
+const MONGO_URL = "mongodb://localhost:27017/clubs";
 
 main()
   .then(() => {
@@ -17,12 +17,12 @@ async function main() {
 }
 
 const initDB = async () => {
-    await Listing.deleteMany({});
+    await Clubs.deleteMany({});
     const updatedData = initData.data.map((obj) => ({
       ...obj,
-      owner: "66db5f26fe3a4f76462d3609",
+      coordinators: "66f877d72fffe2d13459f07d",
     }));
-    await Listing.insertMany(updatedData);
+    await Clubs.insertMany(initData.data);
 }
 
 initDB();

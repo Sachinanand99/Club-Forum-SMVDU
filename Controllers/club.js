@@ -38,9 +38,7 @@ module.exports.createClub = async (req, res) => {
 module.exports.createListing = async (req, res) => {
   let club = await Clubs.findById(req.params.id);
   let url = req.file.path;
-  // let url = "";
   let fileName = req.file.filename;
-  // let fileName = "";
   const newListing = new Listing(req.body.listing);
   newListing.image = { url, fileName };
   newListing.author = req.user._id;

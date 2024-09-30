@@ -8,13 +8,13 @@
                 </a>
             </div>
             <div style="margin: auto;">
-                <div style="margin: auto; font-weight:bold; font-size: 1.5rem;">SMVDU</div>
+                <div style="margin: auto; font-weight:regular; font-size: 1.5rem;">Shri Mata Vaishno Devi University</div>
             </div>
         </div>
-        <form class="d-flex" role="search">
+        <!-- <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
         <% if (!currUser) { %>
             <a class="btn btn-success" onclick="openGoogleLogin()"><b>Log in</b></a>
         <% } %>
@@ -37,8 +37,6 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/clubs/new">Create Club</a></li>
-                    </ul>
-                    <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
                     </ul>
                 </div>

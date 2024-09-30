@@ -138,6 +138,12 @@ app.use("/listings", listingRouter);
 const clubRouter = require("./routes/club")
 app.use("/clubs", clubRouter);
 
+// api for getting users on platform.
+app.get("/api/users", async (req, res) => {
+  const users = await User.find({}, "email googleId _id");
+  res.json(users);
+});
+
 // user signup or login
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter)

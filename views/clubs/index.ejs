@@ -2,20 +2,24 @@
 
 <div>
     <div class="club-index-v1">
-        <div class="title">CLUBS, SMVDU</div>
+        <h2>CLUBS, SMVDU</h2>
         <div class="title-info">A club is an association of people united by a common interest or goal. A service club, for example, exists for
         voluntary or charitable activities. There are clubs devoted to hobbies and sports, social activities clubs, political
         and religious clubs, and so forth.</div>
-        <button>Start Exploring</button>
     </div>
     <div class="club-index-v2">
-        <div class="title">SMVDU CLUBS</div>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <% for (let club of allClubs) { %>
-            <div>
-                <!-- <img src="<%= club.image.url %>"></img> -->
+            
+            <div class="card col club-card" style="width: 18rem;">
+                <img src="<%= club.image.url %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= club.title %></h5>
+                    <p class="card-text"><%= club.description %></p>
+                    <a href="/clubs/<%= club._id %>" class="btn btn-primary">Explore</a>
+                </div>
             </div>
-            <div><%= club.title %></div>
-            <a href="/clubs/<%= club._id %>">link</a>
         <% } %>
+        </div>
     </div>
 </div>

@@ -2,17 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clubSchema = new Schema({
+  // cr
   title: {
     type: String,
     required: true,
   },
+  // later add coordinators from user schema, at the time of designing listing.
+  // r
   coordinators: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
+      img: {
+        url: String,
+        fileName: String,
+      },
+      name: String,
+      rollNo: String,
+    }
   ],
-  image: {
+  // cr
+  image: { 
     url: String,
     fileName: String,
   },
@@ -22,7 +30,15 @@ const clubSchema = new Schema({
       ref: "Listing",
     },
   ],
+  // cr
   description: String,
+  // r
+  about: [
+    {
+      title: String,
+      desc: String,
+    }
+  ]
 });
 
 clubSchema.post("findOneAndDelete", async (club) => {
