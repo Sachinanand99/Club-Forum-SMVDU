@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Comment = require("./comment.js");
 
-
 const listingSchema = new Schema({
   title: {
     type: String,
@@ -19,9 +18,13 @@ const listingSchema = new Schema({
       ref: "Comment",
     },
   ],
-  owner: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  club: {
+    type: Schema.Types.ObjectId,
+    ref: "Club",
   },
 });
 

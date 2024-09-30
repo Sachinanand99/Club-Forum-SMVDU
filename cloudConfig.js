@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "SMVDU_Forum_DEV",
+    folder: "SMVDU_CLUBS",
     allowedFormats: ["png", "jpg", "jpeg"], // supports promises as well
   },
 });

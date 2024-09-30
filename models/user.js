@@ -9,11 +9,6 @@ const userSchema = new Schema({
     lastName: String,
     image: String,
     email: String,
-    role: {
-        type: [String],
-        enum: ["student", "teacher", "house-captain"],
-        default: "student",
-    }
 });
 
 userSchema.plugin(passportLocalMongoose);

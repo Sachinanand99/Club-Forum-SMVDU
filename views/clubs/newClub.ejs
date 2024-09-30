@@ -1,0 +1,84 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+    <div class="col-8 offset-2 mt-3">
+        <br><br>
+        <h3>Create a new club</h3>
+        <form method="post" action="/clubs" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="club[title]" id="title" class="form-control" placeholder="Add your club title" required>
+                <div class="valid-feedback">Title looks good!</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="club[description]" id="description" placeholder="enter description in 30 words" class="form-control" maxlength="30"></textarea>
+                <div class="invalid-feedback">Please enter a description.</div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="image" class="form-label">Upload Club Image</label>
+                    <input type="file" name="club[image]" id="image" class="form-control" required>
+                </div>
+                <div class="mb-3 col-md-8">
+                    <label for="coordinators" class="form-label">Add coordinators Email</label>
+                    <input type="email" name="club[coordinators]" id="coordinators" class="form-control" multiple>
+                </div>
+            </div>
+            <div id="about-sections">
+                <div class="about-section mb-3">
+                    <label for="about-title-1" class="form-label">About Title</label>
+                    <input type="text" name="club[about][0][title]" id="about-title-1" class="form-control" placeholder="Enter about title" required>
+                    <label for="about-desc-1" class="form-label">About Description</label>
+                    <textarea name="club[about][0][desc]" id="about-desc-1" class="form-control" placeholder="Enter about description" required></textarea>
+                    <button type="button" class="btn btn-danger mt-2 remove-about-btn">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-3" id="add-about-btn">Add About Section</button>
+            <button class="btn btn-success mt-3">Create Club</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateAboutSectionIds() {
+            const aboutSections = document.querySelectorAll('.about-section');
+            aboutSections.forEach((section, index) => {
+                section.querySelector('.form-label[for^="about-title"]').setAttribute('for', `about-title-${index}`);
+                section.querySelector('.form-control[id^="about-title"]').setAttribute('id', `about-title-${index}`);
+                section.querySelector('.form-control[name^="club[about]"]').setAttribute('name', `club[about][${index}][title]`);
+
+                section.querySelector('.form-label[for^="about-desc"]').setAttribute('for', `about-desc-${index}`);
+                section.querySelector('.form-control[id^="about-desc"]').setAttribute('id', `about-desc-${index}`);
+                section.querySelector('.form-control[name^="club[about]"]').setAttribute('name', `club[about][${index}][desc]`);
+            });
+        }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let aboutSectionCount = 1;
+
+        document.getElementById('add-about-btn').addEventListener('click', function () {
+            const aboutSections = document.getElementById('about-sections');
+            const newSection = document.createElement('div');
+            newSection.classList.add('about-section', 'mb-3');
+            newSection.innerHTML = `
+            <label for="about-title-${aboutSectionCount}" class="form-label">About Title</label>
+            <input type="text" name="club[about][${aboutSectionCount}][title]" id="about-title-${aboutSectionCount}" class="form-control" placeholder="Enter about title" required>
+            <label for="about-desc-${aboutSectionCount}" class="form-label">About Description</label>
+            <textarea name="club[about][${aboutSectionCount}][desc]" id="about-desc-${aboutSectionCount}" class="form-control" placeholder="Enter about description" required></textarea>
+            <button type="button" class="btn btn-danger mt-2 remove-about-btn">Remove</button>
+        `;
+            aboutSections.appendChild(newSection);
+            aboutSectionCount++;
+            updateAboutSectionIds();
+        });
+
+        document.getElementById('about-sections').addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-about-btn')) {
+                event.target.parentElement.remove();
+                updateAboutSectionIds();
+            }
+        });
+    });
+</script>
