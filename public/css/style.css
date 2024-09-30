@@ -121,3 +121,32 @@ footer .fa-brands{
 .card-text p {
     font-weight: 400;
 }
+
+/* club specific pages */
+.heading-club h2{
+    text-align: center;
+    font-family: "Oswald", "sans-serif";
+    font-size: 40px;
+}
+
+.desc-btn a{
+    text-decoration: none;
+}
+
+.coord {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.coord-items {
+    flex: 1 1 30%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+.coord-img img {
+    border-radius: 50%;
+
+}
+
