@@ -2,7 +2,11 @@
 nav{
     padding: 0px !important;
 }
+.navbar{
+    background-image: url("../assets/logo1.png");
+    background-size: cover;
 
+}
 nav .container-fluid{
     border-bottom: 1px solid grey;
     -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
@@ -103,9 +107,14 @@ footer .fa-brands{
 
 
 /* club */
+
 .club-card {
     border: none !important;
     margin-bottom: 2rem;
+}
+
+.card{
+    border: none !important;
 }
 
 .card-img-top {
@@ -149,4 +158,23 @@ footer .fa-brands{
     border-radius: 50%;
 
 }
+.club-index-v1 h2{
+    font-weight: 700;
+    font-size: 50px;
+    color: #102449;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.accordion-button:not(.collapsed){
+    background-color: #fff !important;
+}
 
+.accordion-button:focus{
+    box-shadow: none !important;
+}
+.description h2{
+    font-size: 30px;
+    font-family:"sans-serif", "Oswald";
+    color: rgba(0, 0, 139, 0.881);
+}

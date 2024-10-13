@@ -76,7 +76,10 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/google/callback",
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? "https://awfully-humble-grubworm.ngrok-free.app/auth/google/callback"
+          : "http://localhost:8080/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       const newUser = {
@@ -89,7 +92,7 @@ passport.use(
       };
       try {
         let user = await User.findOne({ googleId: profile.id });
-        
+
         if (user) {
           done(null, user);
         } else {
@@ -97,7 +100,7 @@ passport.use(
           done(null, user);
         }
       } catch (err) {
-        console.error(err, "Error occured at creating new user.");
+        console.error("Error occurred at creating new user.", err);
       }
     }
   )

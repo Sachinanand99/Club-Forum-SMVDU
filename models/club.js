@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Listing = require("./listing")
 
 const clubSchema = new Schema({
-  // cr
   title: {
     type: String,
     required: true,
   },
   // later add coordinators from user schema, at the time of designing listing.
-  // r
   coordinators: [
     {
       img: {
@@ -19,7 +18,6 @@ const clubSchema = new Schema({
       rollNo: String,
     }
   ],
-  // cr
   image: { 
     url: String,
     fileName: String,
@@ -30,9 +28,7 @@ const clubSchema = new Schema({
       ref: "Listing",
     },
   ],
-  // cr
   description: String,
-  // r
   about: [
     {
       title: String,
@@ -43,9 +39,10 @@ const clubSchema = new Schema({
 
 clubSchema.post("findOneAndDelete", async (club) => {
   if (club) {
-    await Listing.deleteMany({ comments: { _id: { $in: listing.comments } } });
+    await Listing.deleteMany({ listings: { _id: { $in: club.listings } } });
   }
 });
 
 const Clubs = mongoose.model("Clubs", clubSchema);
 module.exports = Clubs;
+  

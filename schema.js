@@ -14,12 +14,31 @@ module.exports.listingSchema = Joi.object({
 module.exports.clubSchema = Joi.object({
   club: Joi.object({
     title: Joi.string().required(),
+    description: Joi.string().required(),
     image: Joi.object({
       url: Joi.string().required(),
       fileName: Joi.string().allow("", null),
     }).required(),
-    description: Joi.string().required(),
-  }).required(),
+  }),
+  coordinators: Joi.array()
+    .items(
+      Joi.object({
+        img: Joi.object({
+          url: Joi.string().required(),
+          fileName: Joi.string().allow("", null),
+        }).required(),
+        name: Joi.string().required(),
+        rollNo: Joi.string().required(),
+      })
+    )
+    .required(),
+  admins: Joi.array()
+    .items(
+      Joi.object({
+        email: Joi.string().email().required(),
+      })
+    )
+    .required(),
 });
 
 

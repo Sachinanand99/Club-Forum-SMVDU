@@ -62,6 +62,11 @@ const ClubData = [
         rollNo: "21bcs105",
       },
     ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
   },
   {
     title: "AET Club",

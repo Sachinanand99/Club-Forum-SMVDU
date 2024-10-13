@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Clubs = require("../models/club.js");
 
-const MONGO_URL = "mongodb://localhost:27017/clubs";
+const MONGO_URL =
+  "mongodb+srv://22bcs070:XTAD8cQ7cgxr4zFz@cluster0.pjph8.mongodb.net/clubproject?retryWrites=true&w=majority&appName=Cluster0";
 
 main()
   .then(() => {

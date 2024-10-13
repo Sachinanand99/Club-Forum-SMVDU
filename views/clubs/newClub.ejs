@@ -6,34 +6,55 @@
         <form method="post" action="/clubs" class="needs-validation" novalidate enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="club[title]" id="title" class="form-control" placeholder="Add your club title" required>
+                <input type="text" name="club[title]" id="title" class="form-control" placeholder="Add your club title"
+                    required>
                 <div class="valid-feedback">Title looks good!</div>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="club[description]" id="description" placeholder="enter description in 30 words" class="form-control" maxlength="30"></textarea>
+                <textarea name="club[description]" id="description" placeholder="Enter description in 30 words"
+                    class="form-control" maxlength="30" required></textarea>
                 <div class="invalid-feedback">Please enter a description.</div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label for="image" class="form-label">Upload Club Image</label>
-                    <input type="file" name="club[image]" id="image" class="form-control" required>
+                    <input type="file" name="club[image][url]" id="image" class="form-control" required>
                 </div>
-                <div class="mb-3 col-md-8">
-                    <label for="coordinators" class="form-label">Add coordinators Email</label>
-                    <input type="email" name="club[coordinators]" id="coordinators" class="form-control" multiple>
+                <div class="mb-3">
+                    <label for="admins" class="form-label">Add Admins Email</label>
+                    <input type="email" name="admins[0][email]" id="admin-email-0" class="form-control" placeholder="Admin Email"
+                        required>
                 </div>
-            </div>
+                
+            
             <div id="about-sections">
                 <div class="about-section mb-3">
                     <label for="about-title-1" class="form-label">About Title</label>
-                    <input type="text" name="club[about][0][title]" id="about-title-1" class="form-control" placeholder="Enter about title" required>
+                    <input type="text" name="club[about][0][title]" id="about-title-1" class="form-control"
+                        placeholder="Enter about title" required>
                     <label for="about-desc-1" class="form-label">About Description</label>
-                    <textarea name="club[about][0][desc]" id="about-desc-1" class="form-control" placeholder="Enter about description" required></textarea>
+                    <textarea name="club[about][0][desc]" id="about-desc-1" class="form-control"
+                        placeholder="Enter about description" required></textarea>
                     <button type="button" class="btn btn-danger mt-2 remove-about-btn">Remove</button>
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mt-3" id="add-about-btn">Add About Section</button>
+            <div id="coordinator-sections">
+                <div class="coordinator-section mb-3">
+                    <label for="coordinator-name-0" class="form-label">Coordinator Name</label>
+                    <input type="text" name="coordinators[0][name]" id="coordinator-name-0" class="form-control"
+                        placeholder="Coordinator Name" required>
+                    <label for="coordinator-rollNo-0" class="form-label">Coordinator Roll No</label>
+                    <input type="text" name="coordinators[0][rollNo]" id="coordinator-rollNo-0" class="form-control"
+                        placeholder="Coordinator Roll No" required>
+                    <label for="coordinator-img-url-0" class="form-label">Image URL</label>
+                    <input type="file" name="coordinators[0][img][url]" id="coordinator-img-url-0" class="form-control" required>
+                    <button type="button" class="btn btn-danger mt-2 remove-coordinator-btn">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-3" id="add-coordinator-btn">Add Coordinator</button>
+            </div>
             <button class="btn btn-success mt-3">Create Club</button>
             <br><br>
         </form>
@@ -53,10 +74,28 @@
                 section.querySelector('.form-control[name^="club[about]"]').setAttribute('name', `club[about][${index}][desc]`);
             });
         }
+    function updateCoordinatorSectionIds() {
+            const coordinatorSections = document.querySelectorAll('.coordinator-section');
+            coordinatorSections.forEach((section, index) => {
+                section.querySelector('.form-label[for^="coordinator-name"]').setAttribute('for', `coordinator-name-${index}`);
+                section.querySelector('.form-control[id^="coordinator-name"]').setAttribute('id', `coordinator-name-${index}`);
+                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][name]`);
 
+                section.querySelector('.form-label[for^="coordinator-rollNo"]').setAttribute('for', `coordinator-rollNo-${index}`);
+                section.querySelector('.form-control[id^="coordinator-rollNo"]').setAttribute('id', `coordinator-rollNo-${index}`);
+                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][rollNo]`);
+
+                section.querySelector('.form-label[for^="coordinator-img-url"]').setAttribute('for', `coordinator-img-url-${index}`);
+                section.querySelector('.form-control[id^="coordinator-img-url"]').setAttribute('id', `coordinator-img-url-${index}`);
+                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][img][url]`);
+
+                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][img][fileName]`);
+            });
+        }
 
     document.addEventListener('DOMContentLoaded', function () {
         let aboutSectionCount = 1;
+        let coordinatorSectionCount = 1;
 
         document.getElementById('add-about-btn').addEventListener('click', function () {
             const aboutSections = document.getElementById('about-sections');
@@ -78,6 +117,31 @@
             if (event.target.classList.contains('remove-about-btn')) {
                 event.target.parentElement.remove();
                 updateAboutSectionIds();
+            }
+        });
+
+        document.getElementById('add-coordinator-btn').addEventListener('click', function () {
+            const coordinatorSections = document.getElementById('coordinator-sections');
+            const newSection = document.createElement('div');
+            newSection.classList.add('coordinator-section', 'mb-3');
+            newSection.innerHTML = `
+                <label for="coordinator-name-${coordinatorSectionCount}" class="form-label">Coordinator Name</label>
+                <input type="text" name="coordinators[${coordinatorSectionCount}][name]" id="coordinator-name-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Name" required>
+                <label for="coordinator-rollNo-${coordinatorSectionCount}" class="form-label">Coordinator Roll No</label>
+                <input type="text" name="coordinators[${coordinatorSectionCount}][rollNo]" id="coordinator-rollNo-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Roll No" required>
+                <label for="coordinator-img-url-${coordinatorSectionCount}" class="form-label">Image URL</label>
+                <input type="file" name="coordinators[${coordinatorSectionCount}][img][url]" id="coordinator-img-url-${coordinatorSectionCount}" class="form-control" required>
+                <button type="button" class="btn btn-danger mt-2 remove-coordinator-btn">Remove</button>
+            `;
+            coordinatorSections.appendChild(newSection);
+            coordinatorSectionCount++;
+            updateCoordinatorSectionIds();
+        });
+
+        document.getElementById('coordinator-sections').addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-coordinator-btn')) {
+                event.target.parentElement.remove();
+                updateCoordinatorSectionIds();
             }
         });
     });

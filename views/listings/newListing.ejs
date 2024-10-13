@@ -1,9 +1,10 @@
 <% layout("/layouts/boilerplate") %>
+
+    <div><%= club.title%></div>
     <div class="row">
         <div class="col-8 offset-2 mt-3">
-            <br><br>
             <h3>Create a new Post</h3>
-            <form id="clubForm" method="post" action="" class="needs-validation" novalidate
+            <form id="clubForm" method="post" action="new" class="needs-validation" novalidate
                 enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -29,10 +30,3 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var form = document.getElementById("clubForm");
-            var currentUrl = window.location.href;
-            form.action = currentUrl.replace("/new", "");
-        });
-    </script>
