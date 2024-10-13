@@ -20,8 +20,9 @@ module.exports.renderNewClubForm = (req, res) => {
     res.render("clubs/newClub.ejs")
 }
 
-module.exports.renderNewListingForm = (req, res) => {
-  res.render("clubs/newListing.ejs");
+module.exports.renderNewListingForm = async (req, res) => {
+  let club = await Clubs.findById(req.params.id);
+  res.render("listings/newListing.ejs", {club});
 };
 
 module.exports.createClub = async (req, res) => {
@@ -44,12 +45,30 @@ module.exports.createListing = async (req, res) => {
   newListing.author = req.user._id;
   newListing.club = req.params.id;
   club.listings.push(newListing);
+  console.log(club, url, fileName, newListing)
   await newListing.save();
   req.flash("success", "New Club created!");
   res.redirect(`/clubs/${req.params.id}/listings`);
 };
 
+module.exports.renderNewClubEditForm = async (req, res) => {
+    let { id } = req.params;
+    const club = await Clubs.findById(id);
+  res.render("clubs/editClub.ejs", {club});
+}
+
 module.exports.showListing = async (req, res) => {
-    const allListings = await Listing.find({ club: req.params.id });
-  res.render("clubs/showListing.ejs", { allListings });
+  const allListings = await Listing.find({ club: req.params.id });
+  res.render("listings/showListing.ejs", { allListings });
+};
+
+
+module.exports.deleteClub = async (req, res) => {
+  // let { id } = req.params;
+  // console.log(id);
+  // let deletedClub = await Clubs.findByIdAndDelete(id);
+  // console.log(deletedClub);
+  // req.flash("success", "Club Deleted!");
+  // res.redirect("/clubs");
+  console.log("deleteClub")
 }

@@ -13,27 +13,31 @@ router.route("/")
     .post(
         ensureAuthenticated,
         upload.single('club[image]'),
-        // validateClub,
+        validateClub,
         wrapAsync(clubController.createClub)
     )
 
 router.get("/new", ensureAuthenticated, clubController.renderNewClubForm);
 
+router.get("/:id/edit", ensureAuthenticated, clubController.renderNewClubEditForm)
+
 router.route("/:id")
-.get(wrapAsync(clubController.showClub))
+    .get(wrapAsync(clubController.showClub))
+    .delete(wrapAsync(clubController.deleteClub));
 
 router.route("/:id/listings")
     .get(wrapAsync(clubController.showListing))
+;
+
+router
+    .route("/:id/listings/new")
+    .get(clubController.renderNewListingForm)
     .post(
-    ensureAuthenticated,
-    upload.single("listing[image]"),
-    // validateListing,
-    wrapAsync(clubController.createListing),
+        ensureAuthenticated,
+        upload.single("listing[image]"),
+        validateListing,
+        wrapAsync(clubController.createListing)
 );
 
-router.get(
-    "/:id/listings/new",
-    clubController.renderNewListingForm
-)
 module.exports = router
 
