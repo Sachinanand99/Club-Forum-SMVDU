@@ -1,67 +1,84 @@
 <% layout("/layouts/boilerplate") %>
-<div>
-    <div class="heading-club">
-        <h2><%= club.title %></h2>
-    </div>
-
-    <form action="/clubs/<%= club._id %>/listings/new">
-        <button class="btn btn-success">
-            New Post
-        </button>
-    </form>
-
-    <div class="description">
-        <h2>About
-            <%= club.title %>
-        </h2>
-        <div class="accordion" id="accordionExample">
-        <% for(let i = 0;i< club.about.length; i++) {%>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>"
-                    aria-expanded="true" aria-controls="collapse<%= i %>">
-                    <%= club.about[i].title%>
-                </button>
+    <div>
+        <div class="heading-club">
+            <div class="heading-club-image" style="background-image: url('<%= club.image.url %>');">
+                <h2 >
+                    <%= club.title %>
                 </h2>
-                <div id="collapse<%= i %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <strong>
-                            <%= club.about[i].desc %>
-                            </strong>
-                        </div>
-                </div>
             </div>
-        <% } %> 
-
+            
+            <div class="about-post">
+                <% if (!(club.about === undefined || club.about.length==0)) { %>
+                <h3>About
+                    <%= club.title %>
+                </h3>
+                <%} %>
+                <form action="/clubs/<%= club._id %>/listings/new">
+                    <button class="btn btn-primary">
+                        New Post
+                    </button>
+                </form>
+            </div>
         </div>
-        <div>
-            <h2>Coordinators</h2>
-            <div class="coord">
-            <% for(let i = 0; i<club.coordinators.length; i++){%>
-                <div class="coord-items">
-                <div class="coord-img">
-                    <img src="<%= club.coordinators[i].img.url %>" alt="">
-                </div>
-                <div class="coord-name">
-                    <h3><%= club.coordinators[i].name %></h3>
-                </div>
-                <div class="coord-rollNo">
-                    (<%= club.coordinators[i].rollNo %>)
-                </div>
-                </div>
-            <%}%>
+       
+        <div class="description">
+            <div class="accordion" id="accordionExample">
+                <% for(let i=0;i< club.about.length; i++) {%>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button text-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse<%= i %>" aria-expanded="true"
+                                aria-controls="collapse<%= i %>">
+                                <%= club.about[i].title%>
+                            </button>
+                        </h2>
+                        <div id="collapse<%= i %>" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>
+                                    <%= club.about[i].desc %>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
             </div>
+            <div>
+                <% if (!(club.coordinators === undefined || club.coordinators.length==0)) { %>
+                
+                <h3>Coordinators</h3>
+                <%} %>
+                <div class="coord">
+                    <% for(let i=0; i<club.coordinators.length; i++){%>
+                        <div class="coord-items">
+                            <div class="coord-img">
+                                <img src="<%= club.coordinators[i].img.url %>" alt="">
+                            </div>
+                            <div class="coord-name">
+                                <h3>
+                                    <%= club.coordinators[i].name %>
+                                </h3>
+                            </div>
+                            <div class="coord-rollNo">
+                                (<%= club.coordinators[i].rollNo %>)
+                            </div>
+                        </div>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+        <div class="action showclub-action">
+            <form action="/clubs/<%= club._id %>/edit" class="clubspec-form">
+                <button class="btn btn-success ">
+                    Update Club
+                </button>
+            </form>
+            <!-- not working delete route -->
+            <form method="post" action="/clubs/<%= club._id %>?_method=DELETE" class="clubspec-form">
+                <button class="btn btn-danger">
+                    Delete Club
+                </button>
+            </form>
         </div>
     </div>
-    <form action="/clubs/<%= club._id %>/edit">
-        <button class="btn btn-success">
-            Update Club
-        </button>
-    </form>
-    <!-- not working delete route -->
-    <form action="/clubs/<%= club._id %>?_method=DELETE">
-        <button class="btn btn-danger">
-            Delete Club
-        </button>
-    </form>
-</div>

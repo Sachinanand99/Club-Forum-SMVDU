@@ -15,16 +15,14 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
-        <% if (!currUser) { %>
-            <a class="btn btn-success" onclick="openGoogleLogin()"><b>Log in</b></a>
-        <% } %>
-        <% if (currUser) { %>
-            <div class="nav-ryt">
-                <div>
-                    <button type="button" class="btn btn-secondary create-btn" onclick="window.location.replace('/clubs')">
-                        Clubs
-                    </button>
-                </div>
+       
+        <div class="nav-ryt">
+            <div>
+                <button type="button" class="btn btn-secondary create-btn" onclick="window.location.replace('/clubs')">
+                    Clubs
+                </button>
+            </div>
+            <% if (currUser) { %>
                 <div class="user-icon dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -41,6 +39,10 @@
                     </ul>
                 </div>
             </div>
+            
+        <% } %>
+        <% if (!currUser) { %>
+            <a class="btn btn-success" onclick="openGoogleLogin()"><b>Log in</b></a>
         <% } %>
     </div>
 </nav>

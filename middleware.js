@@ -27,3 +27,9 @@ module.exports.validateListing = (req, res, next) => {
   }
   next();
 };
+
+
+module.exports.isAdmin = (req, res, next) =>{
+  console.log("fine");
+  next();
+}

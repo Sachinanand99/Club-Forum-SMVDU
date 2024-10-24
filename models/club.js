@@ -7,7 +7,6 @@ const clubSchema = new Schema({
     type: String,
     required: true,
   },
-  // later add coordinators from user schema, at the time of designing listing.
   coordinators: [
     {
       img: {
@@ -33,6 +32,21 @@ const clubSchema = new Schema({
     {
       title: String,
       desc: String,
+    }
+  ],
+  admins: [
+    {
+      email: String,
+    },
+  ],
+  coordinators: [
+    {
+      name: String,
+      rollNo: String,
+      img:{
+        url: String,
+        fileName: String,
+      }
     }
   ]
 });
