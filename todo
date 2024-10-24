@@ -19,13 +19,15 @@ navbar redesign
 create clubs route and perform crud on club.
 create clubs templates.
 
+
 4.
 create listing route and perform crud on listing.
-merge with backend
+merge with backend.
 
 5.
 add comment feature perform crud on comment.
-merge with backend
+merge with backend.
+add user validation for listing and club.
 
 6.
 add search feature for searching club and listing.

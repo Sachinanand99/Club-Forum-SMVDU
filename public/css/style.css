@@ -132,12 +132,55 @@ footer .fa-brands{
 }
 
 /* club specific pages */
-.heading-club h2{
+
+.heading-club .heading-club-image{
+    background-size: cover; background-position: center; padding: 20px; opacity: 0.75;
+}
+.heading-club .heading-club-image h2{
     text-align: center;
     font-family: "Oswald", "sans-serif";
-    font-size: 40px;
+    font-size: 50px;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
+    color: #fff;
+}
+.action {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-inline: 120px;
+    
+   
+}
+.action button{
+    margin-top: 10px;
+    padding-inline: 50px !important;
+}
+.about-post{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    right: 0;
+
+}
+.about-post h3{
+    width: 70%;
+    float: left;
+    font-family:"Oswald", "sans-serif" ;
+    color:darkslategrey;
+    font-size: 35px;
 }
 
+.about-post button{
+    width: 25%;
+    float: inherit;
+}
+.accordion-button{
+    background-color: #f3f3f3;
+    font-size: 25px !important;
+}
 .desc-btn a{
     text-decoration: none;
 }
@@ -152,11 +195,14 @@ footer .fa-brands{
     flex: 1 1 30%;
     box-sizing: border-box;
     margin: 10px;
+    text-align: center;
 }
 
 .coord-img img {
     border-radius: 50%;
-
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 .club-index-v1 h2{
     font-weight: 700;
@@ -177,4 +223,58 @@ footer .fa-brands{
     font-size: 30px;
     font-family:"sans-serif", "Oswald";
     color: rgba(0, 0, 139, 0.881);
+}
+.description h3{
+    font-size: 30px;
+    font-family:"sans-serif", "Oswald";
+    color: rgba(0, 0, 139, 0.881);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* add club with about section */
+.about-sections{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.about-section{
+    flex: 1 1 30%;
+    border: 1px solid black ;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem 0.5rem 1rem 0;
+}
+
+.about-section .form-label{
+    margin-top: 3px;
+}
+
+/* add club with coordinator section */
+.coordinator-sections{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.coordinator-section{
+    flex: 1 1 30%;
+    border: 1px solid black ;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem 0.5rem 1rem 0;
+}
+
+.coordinator-section .form-label{
+    margin-top: 3px;
+}
+
+
+.showclub-action{
+    display: flex;
+    margin: 0;
+    
+}
+
+.clubspec-form{
+    padding:1.5rem 1.5rem 1.5rem 0;
 }

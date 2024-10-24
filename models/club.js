@@ -34,6 +34,21 @@ const clubSchema = new Schema({
       title: String,
       desc: String,
     }
+  ],
+  admins: [
+    {
+      email: String,
+    },
+  ],
+  coordinators: [
+    {
+      name: String,
+      rollNo: String,
+      img:{
+        url: String,
+        fileName: String,
+      }
+    }
   ]
 });
 

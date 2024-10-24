@@ -3,7 +3,7 @@
     <div class="col-8 offset-2 mt-3">
         <br><br>
         <h3>Create a new club</h3>
-        <form method="post" action="/clubs" class="needs-validation" novalidate enctype="multipart/form-data">
+        <form method="post" action="/clubs" enctype="multipart/form-data" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="club[title]" id="title" class="form-control" placeholder="Add your club title"
@@ -12,44 +12,46 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="club[description]" id="description" placeholder="Enter description in 30 words"
-                    class="form-control" maxlength="30" required></textarea>
+                <textarea name="club[description]" id="description" placeholder="Enter description..."
+                    class="form-control" required></textarea>
                 <div class="invalid-feedback">Please enter a description.</div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label for="image" class="form-label">Upload Club Image</label>
-                    <input type="file" name="club[image][url]" id="image" class="form-control" required>
+                    <input type="file" name="club[image]" id="image" class="form-control" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 col-md-8">
                     <label for="admins" class="form-label">Add Admins Email</label>
-                    <input type="email" name="admins[0][email]" id="admin-email-0" class="form-control" placeholder="Admin Email"
+                    <input type="email" name="club[admins][0][email]" id="admin-email-0" class="form-control" placeholder="Admin Email"
                         required>
                 </div>
-                
-            
-            <div id="about-sections">
-                <div class="about-section mb-3">
+                <hr>
+            <h5>About Section</h5>
+            <div id="about-sections" class="about-sections">
+                <div class="about-section">
                     <label for="about-title-1" class="form-label">About Title</label>
                     <input type="text" name="club[about][0][title]" id="about-title-1" class="form-control"
                         placeholder="Enter about title" required>
                     <label for="about-desc-1" class="form-label">About Description</label>
                     <textarea name="club[about][0][desc]" id="about-desc-1" class="form-control"
                         placeholder="Enter about description" required></textarea>
-                    <button type="button" class="btn btn-danger mt-2 remove-about-btn">Remove</button>
+                    <button type="button" class="btn btn-danger remove-about-btn mt-2">Remove</button>
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mt-3" id="add-about-btn">Add About Section</button>
+            <hr class="mt-4">
+            <h5>Coordinator Section</h5>
             <div id="coordinator-sections">
-                <div class="coordinator-section mb-3">
+                <div class="coordinator-section mt-3">
                     <label for="coordinator-name-0" class="form-label">Coordinator Name</label>
-                    <input type="text" name="coordinators[0][name]" id="coordinator-name-0" class="form-control"
+                    <input type="text" name="club[coordinators][0][name]" id="coordinator-name-0" class="form-control"
                         placeholder="Coordinator Name" required>
                     <label for="coordinator-rollNo-0" class="form-label">Coordinator Roll No</label>
-                    <input type="text" name="coordinators[0][rollNo]" id="coordinator-rollNo-0" class="form-control"
+                    <input type="text" name="club[coordinators][0][rollNo]" id="coordinator-rollNo-0" class="form-control"
                         placeholder="Coordinator Roll No" required>
-                    <label for="coordinator-img-url-0" class="form-label">Image URL</label>
-                    <input type="file" name="coordinators[0][img][url]" id="coordinator-img-url-0" class="form-control" required>
+                    <label for="coordinator-img-0" class="form-label">Upload Image</label>
+                    <input type="file" name="club[coordinators][0][img]" id="coordinator-img-0" class="form-control" required>
                     <button type="button" class="btn btn-danger mt-2 remove-coordinator-btn">Remove</button>
                 </div>
             </div>
@@ -64,34 +66,35 @@
 <script>
     function updateAboutSectionIds() {
             const aboutSections = document.querySelectorAll('.about-section');
+            console.log(aboutSections);
             aboutSections.forEach((section, index) => {
                 section.querySelector('.form-label[for^="about-title"]').setAttribute('for', `about-title-${index}`);
                 section.querySelector('.form-control[id^="about-title"]').setAttribute('id', `about-title-${index}`);
-                section.querySelector('.form-control[name^="club[about]"]').setAttribute('name', `club[about][${index}][title]`);
-
+                section.querySelector('.form-control[name^="club[about]"][name$="[title]"]').setAttribute('name', `club[about][${index}][title]`);
+                
                 section.querySelector('.form-label[for^="about-desc"]').setAttribute('for', `about-desc-${index}`);
                 section.querySelector('.form-control[id^="about-desc"]').setAttribute('id', `about-desc-${index}`);
-                section.querySelector('.form-control[name^="club[about]"]').setAttribute('name', `club[about][${index}][desc]`);
+                section.querySelector('.form-control[name^="club[about]"][name$="[desc]"]').setAttribute('name', `club[about][${index}][desc]`);
             });
         }
-    function updateCoordinatorSectionIds() {
+        function updateCoordinatorSectionIds() {
             const coordinatorSections = document.querySelectorAll('.coordinator-section');
+            console.log(coordinatorSections);
             coordinatorSections.forEach((section, index) => {
                 section.querySelector('.form-label[for^="coordinator-name"]').setAttribute('for', `coordinator-name-${index}`);
                 section.querySelector('.form-control[id^="coordinator-name"]').setAttribute('id', `coordinator-name-${index}`);
-                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][name]`);
-
+                section.querySelector('.form-control[name^="club[coordinators]"][name$="[name]"]').setAttribute('name', `club[coordinators][${index}][name]`);
+                
                 section.querySelector('.form-label[for^="coordinator-rollNo"]').setAttribute('for', `coordinator-rollNo-${index}`);
                 section.querySelector('.form-control[id^="coordinator-rollNo"]').setAttribute('id', `coordinator-rollNo-${index}`);
-                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][rollNo]`);
+                section.querySelector('.form-control[name^="club[coordinators]"][name$="[rollNo]"]').setAttribute('name', `club[coordinators][${index}][rollNo]`);
 
-                section.querySelector('.form-label[for^="coordinator-img-url"]').setAttribute('for', `coordinator-img-url-${index}`);
-                section.querySelector('.form-control[id^="coordinator-img-url"]').setAttribute('id', `coordinator-img-url-${index}`);
-                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][img][url]`);
+                section.querySelector('.form-label[for^="coordinator-img"]').setAttribute('for', `coordinator-img-${index}`);
+                section.querySelector('.form-control[id^="coordinator-img"]').setAttribute('id', `coordinator-img-${index}`);
+                section.querySelector('.form-control[name^="club[coordinators]"][name$="[img]"]').setAttribute('name', `club[coordinators][${index}][img]`);
+    });
+}
 
-                section.querySelector('.form-control[name^="coordinators"]').setAttribute('name', `coordinators[${index}][img][fileName]`);
-            });
-        }
 
     document.addEventListener('DOMContentLoaded', function () {
         let aboutSectionCount = 1;
@@ -126,11 +129,11 @@
             newSection.classList.add('coordinator-section', 'mb-3');
             newSection.innerHTML = `
                 <label for="coordinator-name-${coordinatorSectionCount}" class="form-label">Coordinator Name</label>
-                <input type="text" name="coordinators[${coordinatorSectionCount}][name]" id="coordinator-name-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Name" required>
+                <input type="text" name="club[coordinators][${coordinatorSectionCount}][name]" id="coordinator-name-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Name" required>
                 <label for="coordinator-rollNo-${coordinatorSectionCount}" class="form-label">Coordinator Roll No</label>
-                <input type="text" name="coordinators[${coordinatorSectionCount}][rollNo]" id="coordinator-rollNo-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Roll No" required>
-                <label for="coordinator-img-url-${coordinatorSectionCount}" class="form-label">Image URL</label>
-                <input type="file" name="coordinators[${coordinatorSectionCount}][img][url]" id="coordinator-img-url-${coordinatorSectionCount}" class="form-control" required>
+                <input type="text" name="club[coordinators][${coordinatorSectionCount}][rollNo]" id="coordinator-rollNo-${coordinatorSectionCount}" class="form-control" placeholder="Coordinator Roll No" required>
+                <label for="coordinator-img-${coordinatorSectionCount}" class="form-label">Upload Image</label>
+                <input type="file" name="club[coordinators][${coordinatorSectionCount}][img]" id="coordinator-img-${coordinatorSectionCount}" class="form-control" required>
                 <button type="button" class="btn btn-danger mt-2 remove-coordinator-btn">Remove</button>
             `;
             coordinatorSections.appendChild(newSection);

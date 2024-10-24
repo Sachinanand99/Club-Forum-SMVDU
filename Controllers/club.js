@@ -26,15 +26,32 @@ module.exports.renderNewListingForm = async (req, res) => {
 };
 
 module.exports.createClub = async (req, res) => {
-    let url = req.file.path;
-    let fileName = req.file.filename;
-    const newClub = new Clubs(req.body.club);
-    newClub.coordinators.push(req.user._id);
-    newClub.image = { url, fileName };
-    await newClub.save();
-    req.flash("success", "New Club created!");
-    res.redirect("/clubs");
-}
+  const newClub = new Clubs(req.body.club);
+  console.log(req.body.club.coordinators);
+  const imageFile = req.files.find(file => file.fieldname === 'club[image]');
+  const coordinatorFiles = req.files.filter(file => file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]'));
+  let url = imageFile.path;
+  let fileName = imageFile.originalname;
+  newClub.image = { url, fileName };
+  console.log("before body: ", req.body.club.coordinators);
+  console.log("before newclub : ", newClub.coordinators);
+  newClub.coordinators = req.body.club.coordinators.map((coordinator, index) => {
+    const file = coordinatorFiles.find(file => file.fieldname === `club[coordinators][${index}][img]`);
+    if (file) {
+      coordinator.img = {
+        url: file.path,
+        filename: file.originalname,
+      };
+    }
+    return coordinator;
+  });
+  console.log("after newclub: ", newClub.coordinators);
+  await newClub.save();
+  req.flash("success", "New Club created!");
+  res.redirect(`/clubs/${newClub._id}`);
+};
+
+
 
 module.exports.createListing = async (req, res) => {
   let club = await Clubs.findById(req.params.id);
@@ -64,11 +81,9 @@ module.exports.showListing = async (req, res) => {
 
 
 module.exports.deleteClub = async (req, res) => {
-  // let { id } = req.params;
-  // console.log(id);
-  // let deletedClub = await Clubs.findByIdAndDelete(id);
-  // console.log(deletedClub);
-  // req.flash("success", "Club Deleted!");
-  // res.redirect("/clubs");
-  console.log("deleteClub")
+  let { id } = req.params;
+  let deletedClub = await Clubs.findByIdAndDelete(id);
+  console.log(deletedClub);
+  req.flash("success", "Club Deleted!");
+  res.redirect("/clubs");
 }

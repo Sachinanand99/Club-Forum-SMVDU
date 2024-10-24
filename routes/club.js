@@ -6,16 +6,28 @@ const multer = require("multer");
 const clubController = require("../Controllers/club");
 const { ensureAuthenticated, validateClub, validateListing } = require("../middleware");
 const { storage } = require("../cloudConfig.js");
-const upload = multer({ storage });
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      if (file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]')) {
+        cb(null, true);
+      } else if (file.fieldname === 'club[image]') {
+        cb(null, true);
+      } else {
+        cb(new Error('Unexpected field'));
+      }
+    }
+  });
 
 router.route("/")
     .get(wrapAsync(clubController.index))
     .post(
         ensureAuthenticated,
-        upload.single('club[image]'),
-        validateClub,
+        upload.any(),
+        // validateClub,
         wrapAsync(clubController.createClub)
-    )
+      );
 
 router.get("/new", ensureAuthenticated, clubController.renderNewClubForm);
 
@@ -35,7 +47,7 @@ router
     .post(
         ensureAuthenticated,
         upload.single("listing[image]"),
-        validateListing,
+        // validateListing,
         wrapAsync(clubController.createListing)
 );
 
