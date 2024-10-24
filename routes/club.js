@@ -7,7 +7,7 @@ const clubController = require("../Controllers/club");
 const { ensureAuthenticated, validateClub, validateListing, isAdmin } = require("../middleware");
 const { storage } = require("../cloudConfig.js");
 
-const upload = multer({
+const uploadClubImg = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
       if (file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]')) {
@@ -20,11 +20,12 @@ const upload = multer({
     }
   });
 
+const uploadListingImg = multer({storage: storage});
 router.route("/")
     .get(wrapAsync(clubController.index))
     .post(
         ensureAuthenticated,
-        upload.any(),
+        uploadClubImg.any(),
         // validateClub,
         wrapAsync(clubController.createClub)
       );
@@ -38,7 +39,7 @@ router.route("/:id")
     .put(
         ensureAuthenticated,
         isAdmin,
-        upload.any(),
+        uploadClubImg.any(),
         // validateClub,
         wrapAsync(clubController.updateClub))
     .delete(wrapAsync(clubController.deleteClub));
@@ -51,10 +52,10 @@ router
     .route("/:id/listings/new")
     .get(clubController.renderNewListingForm)
     .post(
-        ensureAuthenticated,
-        // upload.single("listing[image]"),
-        // validateListing,
-        wrapAsync(clubController.createListing)
+      ensureAuthenticated,
+      uploadListingImg.single("listing[image]"),
+      // validateListing,
+      wrapAsync(clubController.createListing)
 );
 
 module.exports = router

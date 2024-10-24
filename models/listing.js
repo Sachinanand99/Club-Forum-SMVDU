@@ -26,6 +26,19 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Club",
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+listingSchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

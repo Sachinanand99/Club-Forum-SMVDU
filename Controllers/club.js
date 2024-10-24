@@ -58,7 +58,7 @@ module.exports.createListing = async (req, res) => {
   newListing.author = req.user._id;
   newListing.club = req.params.id;
   club.listings.push(newListing);
-  console.log(club, url, fileName, newListing)
+  await club.save();
   await newListing.save();
   req.flash("success", "New Club created!");
   res.redirect(`/clubs/${req.params.id}/listings`);

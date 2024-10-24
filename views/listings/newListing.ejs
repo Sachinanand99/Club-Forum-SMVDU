@@ -1,9 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div><%= club.title%></div>
     <div class="row">
         <div class="col-8 offset-2 mt-3">
-            <h3>Create a new Post</h3>
+            <h3>Create a new Post for <%= club.title%></h3>
             <form id="clubForm" method="post" action="new" class="needs-validation" novalidate
                 enctype="multipart/form-data">
                 <div class="mb-3">
@@ -19,7 +18,7 @@
                     <div class="invalid-feedback">Please enter a description.</div>
                 </div>
                 <div class="row">
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3">
                         <label for="image" class="form-label">Upload Club Image</label>
                         <input type="file" name="listing[image]" id="image" class="form-control" required>
                     </div>
