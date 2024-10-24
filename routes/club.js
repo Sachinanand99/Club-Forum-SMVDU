@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const Clubs = require("../models/club");
 const multer = require("multer");
 const clubController = require("../Controllers/club");
-const { ensureAuthenticated, validateClub, validateListing } = require("../middleware");
+const { ensureAuthenticated, validateClub, validateListing, isAdmin } = require("../middleware");
 const { storage } = require("../cloudConfig.js");
 
 const upload = multer({
@@ -35,6 +35,12 @@ router.get("/:id/edit", ensureAuthenticated, clubController.renderNewClubEditFor
 
 router.route("/:id")
     .get(wrapAsync(clubController.showClub))
+    .put(
+        ensureAuthenticated,
+        isAdmin,
+        upload.any(),
+        // validateClub,
+        wrapAsync(clubController.updateClub))
     .delete(wrapAsync(clubController.deleteClub));
 
 router.route("/:id/listings")
@@ -46,7 +52,7 @@ router
     .get(clubController.renderNewListingForm)
     .post(
         ensureAuthenticated,
-        upload.single("listing[image]"),
+        // upload.single("listing[image]"),
         // validateListing,
         wrapAsync(clubController.createListing)
 );

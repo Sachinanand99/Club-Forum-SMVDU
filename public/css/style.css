@@ -136,6 +136,7 @@ footer .fa-brands{
 .heading-club .heading-club-image{
     background-size: cover; background-position: center; padding: 20px; opacity: 0.75;
 }
+
 .heading-club .heading-club-image h2{
     text-align: center;
     font-family: "Oswald", "sans-serif";
@@ -147,6 +148,7 @@ footer .fa-brands{
     1px 1px 0 #000; 
     color: #fff;
 }
+
 .action {
     width: 100%;
     margin-bottom: 20px;
@@ -154,10 +156,12 @@ footer .fa-brands{
     
    
 }
+
 .action button{
     margin-top: 10px;
     padding-inline: 50px !important;
 }
+
 .about-post{
     width: 100%;
     margin-top: 10px;
@@ -165,6 +169,7 @@ footer .fa-brands{
     right: 0;
 
 }
+
 .about-post h3{
     width: 70%;
     float: left;
@@ -177,10 +182,12 @@ footer .fa-brands{
     width: 25%;
     float: inherit;
 }
+
 .accordion-button{
     background-color: #f3f3f3;
     font-size: 25px !important;
 }
+
 .desc-btn a{
     text-decoration: none;
 }
@@ -204,6 +211,7 @@ footer .fa-brands{
     height: 150px;
     object-fit: cover;
 }
+
 .club-index-v1 h2{
     font-weight: 700;
     font-size: 50px;
@@ -212,6 +220,7 @@ footer .fa-brands{
     margin-bottom: 30px;
     font-family: 'Times New Roman', Times, serif;
 }
+
 .accordion-button:not(.collapsed){
     background-color: #fff !important;
 }
@@ -219,6 +228,7 @@ footer .fa-brands{
 .accordion-button:focus{
     box-shadow: none !important;
 }
+
 .description h2{
     font-size: 30px;
     font-family:"sans-serif", "Oswald";
@@ -239,7 +249,7 @@ footer .fa-brands{
     justify-content: center;
 }
 .about-section{
-    flex: 1 1 30%;
+    flex: 1 1 48%;
     border: 1px solid black ;
     border-radius: 0.5rem;
     padding: 1rem;
@@ -277,4 +287,9 @@ footer .fa-brands{
 
 .clubspec-form{
     padding:1.5rem 1.5rem 1.5rem 0;
+}
+
+/* edit club page */
+.coord-img{
+    text-align: center;
 }

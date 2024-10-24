@@ -27,14 +27,11 @@ module.exports.renderNewListingForm = async (req, res) => {
 
 module.exports.createClub = async (req, res) => {
   const newClub = new Clubs(req.body.club);
-  console.log(req.body.club.coordinators);
   const imageFile = req.files.find(file => file.fieldname === 'club[image]');
   const coordinatorFiles = req.files.filter(file => file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]'));
   let url = imageFile.path;
   let fileName = imageFile.originalname;
   newClub.image = { url, fileName };
-  console.log("before body: ", req.body.club.coordinators);
-  console.log("before newclub : ", newClub.coordinators);
   newClub.coordinators = req.body.club.coordinators.map((coordinator, index) => {
     const file = coordinatorFiles.find(file => file.fieldname === `club[coordinators][${index}][img]`);
     if (file) {
@@ -45,7 +42,6 @@ module.exports.createClub = async (req, res) => {
     }
     return coordinator;
   });
-  console.log("after newclub: ", newClub.coordinators);
   await newClub.save();
   req.flash("success", "New Club created!");
   res.redirect(`/clubs/${newClub._id}`);
@@ -73,6 +69,56 @@ module.exports.renderNewClubEditForm = async (req, res) => {
     const club = await Clubs.findById(id);
   res.render("clubs/editClub.ejs", {club});
 }
+
+
+module.exports.updateClub = async (req, res) => {
+  let { id } = req.params;
+  console.log("updating club...");
+
+  try {
+    const collection = await Clubs.findById(id);
+    let coordinators = collection.coordinators;
+    console.log(coordinators);
+
+    let club = await Clubs.findByIdAndUpdate(id, { ...req.body.club }, { new: true });
+
+    const imageFile = req.files.find(file => file.fieldname === 'club[image]');
+    const coordinatorFiles = req.files.filter(file => file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]'));
+
+    if (imageFile) {
+      let url = imageFile.path;
+      let fileName = imageFile.originalname;
+      club.image = { url, fileName };
+    }
+
+    coordinators = req.body.club.coordinators.map((coordinator, index) => {
+      const file = coordinatorFiles.find(file => file.fieldname === `club[coordinators][${index}][img]`);
+      if (file) {
+        coordinator.img = {
+          url: file.path,
+          filename: file.originalname,
+        };
+      } else if (coordinators[index] && coordinators[index].img) {
+        // Keep the old image if no new file is provided
+        coordinator.img = coordinators[index].img;
+      }
+      return coordinator;
+    });
+
+    club.coordinators = coordinators;
+    await club.save();
+
+    console.log(club.coordinators);
+    req.flash("success", "Club Updated!");
+    res.redirect(`/clubs/${id}`);
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "Failed to update club.");
+    res.redirect(`/clubs/${id}`);
+  }
+};
+
+
 
 module.exports.showListing = async (req, res) => {
   const allListings = await Listing.find({ club: req.params.id });

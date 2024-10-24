@@ -7,7 +7,6 @@ const clubSchema = new Schema({
     type: String,
     required: true,
   },
-  // later add coordinators from user schema, at the time of designing listing.
   coordinators: [
     {
       img: {
