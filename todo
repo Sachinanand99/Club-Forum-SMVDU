@@ -18,11 +18,12 @@ login page template
 navbar redesign
 create clubs route and perform crud on club.
 create clubs templates.
-
+(done)
 
 4.
 create listing route and perform crud on listing.
 merge with backend.
+do validation on club and listing (both frontend and backend)
 
 5.
 add comment feature perform crud on comment.
@@ -34,6 +35,4 @@ add search feature for searching club and listing.
 
 7.
 fix bugs.
-
-8.
 deploy
