@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const Clubs = require("../models/club");
 const multer = require("multer");
 const clubController = require("../Controllers/club");
+const listingController = require("../Controllers/listing");
 const { ensureAuthenticated, validateClub, validateListing, isAdmin } = require("../middleware");
 const { storage } = require("../cloudConfig.js");
 
@@ -21,6 +22,8 @@ const uploadClubImg = multer({
   });
 
 const uploadListingImg = multer({storage: storage});
+
+
 router.route("/")
     .get(wrapAsync(clubController.index))
     .post(
@@ -45,18 +48,34 @@ router.route("/:id")
     .delete(wrapAsync(clubController.deleteClub));
 
 router.route("/:id/listings")
-    .get(wrapAsync(clubController.showListing))
+    .get(wrapAsync(listingController.showListings));
 ;
 
 router
     .route("/:id/listings/new")
-    .get(clubController.renderNewListingForm)
+    .get(listingController.renderNewListingForm)
     .post(
       ensureAuthenticated,
+      isAdmin,
       uploadListingImg.single("listing[image]"),
       // validateListing,
-      wrapAsync(clubController.createListing)
+      wrapAsync(listingController.createListing)
+);
+
+
+router.route("/:id/listings/:id2/edit")
+.get(ensureAuthenticated, isAdmin, wrapAsync(listingController.renderEditListingForm))
+.put(ensureAuthenticated,
+  isAdmin,
+  uploadListingImg.single("listing[image]"),
+  wrapAsync(listingController.handleUpdateListing))
+;
+
+router.route("/:id/listings/:id2/")
+.get(wrapAsync(listingController.viewListing))
+.delete(ensureAuthenticated,
+  isAdmin,
+  wrapAsync(listingController.handleDeleteListing)
 );
 
 module.exports = router
-

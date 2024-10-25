@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Comment = require("./comment.js");
+const Club = require("./club.js"); 
+
 
 const listingSchema = new Schema({
   title: {
@@ -42,9 +44,16 @@ listingSchema.pre('save', function(next) {
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
-    if (listing) {
-        await Comment.deleteMany({ comments: { _id: { $in: listing.comments } } });
-    }
+  if (listing) {
+    // Remove the listing reference from the club's listings array
+    await Club.updateOne(
+      { _id: listing.club },
+      { $pull: { listings: listing._id } }
+    );
+
+    // Delete associated comments
+    await Comment.deleteMany({ _id: { $in: listing.comments } });
+  }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

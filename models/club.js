@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Listing = require("./listing")
 
 const clubSchema = new Schema({
   title: {
@@ -53,10 +52,9 @@ const clubSchema = new Schema({
 
 clubSchema.post("findOneAndDelete", async (club) => {
   if (club) {
-    await Listing.deleteMany({ listings: { _id: { $in: club.listings } } });
+    await Listing.deleteMany({ _id: { $in: club.listings } });
   }
 });
 
 const Clubs = mongoose.model("Clubs", clubSchema);
 module.exports = Clubs;
-  
