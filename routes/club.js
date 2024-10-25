@@ -4,10 +4,11 @@ const wrapAsync = require("../utils/wrapAsync");
 const Clubs = require("../models/club");
 const multer = require("multer");
 const clubController = require("../Controllers/club");
+const listingController = require("../Controllers/listing");
 const { ensureAuthenticated, validateClub, validateListing, isAdmin } = require("../middleware");
 const { storage } = require("../cloudConfig.js");
 
-const upload = multer({
+const uploadClubImg = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
       if (file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]')) {
@@ -20,11 +21,14 @@ const upload = multer({
     }
   });
 
+const uploadListingImg = multer({storage: storage});
+
+
 router.route("/")
     .get(wrapAsync(clubController.index))
     .post(
         ensureAuthenticated,
-        upload.any(),
+        uploadClubImg.any(),
         // validateClub,
         wrapAsync(clubController.createClub)
       );
@@ -38,24 +42,40 @@ router.route("/:id")
     .put(
         ensureAuthenticated,
         isAdmin,
-        upload.any(),
+        uploadClubImg.any(),
         // validateClub,
         wrapAsync(clubController.updateClub))
     .delete(wrapAsync(clubController.deleteClub));
 
 router.route("/:id/listings")
-    .get(wrapAsync(clubController.showListing))
+    .get(wrapAsync(listingController.showListings));
 ;
 
 router
     .route("/:id/listings/new")
-    .get(clubController.renderNewListingForm)
+    .get(listingController.renderNewListingForm)
     .post(
-        ensureAuthenticated,
-        // upload.single("listing[image]"),
-        // validateListing,
-        wrapAsync(clubController.createListing)
+      ensureAuthenticated,
+      isAdmin,
+      uploadListingImg.single("listing[image]"),
+      // validateListing,
+      wrapAsync(listingController.createListing)
+);
+
+
+router.route("/:id/listings/:id2/edit")
+.get(ensureAuthenticated, isAdmin, wrapAsync(listingController.renderEditListingForm))
+.put(ensureAuthenticated,
+  isAdmin,
+  uploadListingImg.single("listing[image]"),
+  wrapAsync(listingController.handleUpdateListing))
+;
+
+router.route("/:id/listings/:id2/")
+.get(wrapAsync(listingController.viewListing))
+.delete(ensureAuthenticated,
+  isAdmin,
+  wrapAsync(listingController.handleDeleteListing)
 );
 
 module.exports = router
-
