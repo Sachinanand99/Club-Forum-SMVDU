@@ -27,8 +27,9 @@ module.exports.createListing = async (req, res) => {
   
   
   module.exports.showListings = async (req, res) => {
+    let {id} = req.params; 
     const allListings = await Listing.find({ club: req.params.id });
-    res.render("listings/showListings.ejs", { allListings });
+    res.render("listings/showListings.ejs", { allListings, id });
   };
   
   module.exports.renderNewListingForm = async (req, res) => {
