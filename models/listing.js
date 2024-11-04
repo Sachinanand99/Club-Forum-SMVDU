@@ -36,6 +36,12 @@ const listingSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  club: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Club",
+    },
+  ],
 });
 
 listingSchema.pre('save', function(next) {
@@ -43,18 +49,18 @@ listingSchema.pre('save', function(next) {
   next();
 });
 
-listingSchema.post("findOneAndDelete", async (listing) => {
-  if (listing) {
-    // Remove the listing reference from the club's listings array
-    await Club.updateOne(
-      { _id: listing.club },
-      { $pull: { listings: listing._id } }
-    );
+// listingSchema.post("findOneAndDelete", async (listing) => {
+//   if (listing) {
+//     // Remove the listing reference from the club's listings array
+//     await Club.updateOne(
+//       { _id: listing.club },
+//       { $pull: { listings: listing._id } }
+//     );
 
-    // Delete associated comments
-    await Comment.deleteMany({ _id: { $in: listing.comments } });
-  }
-});
+//     // Delete associated comments
+//     await Comment.deleteMany({ _id: { $in: listing.comments } });
+//   }
+// });
 
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;

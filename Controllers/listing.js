@@ -1,5 +1,5 @@
 const Listing = require("../models/listing");
-const Clubs = require("../models/club");
+const Club = require("../models/club");
 
 
 module.exports.index = async (req, res) => {
@@ -9,7 +9,7 @@ module.exports.index = async (req, res) => {
 
 
 module.exports.createListing = async (req, res) => {
-    let club = await Clubs.findById(req.params.id);
+    let club = await Club.findById(req.params.id);
     const newListing = new Listing(req.body.listing);
     if (typeof req.file !== "undefined"){
         let url = req.file.path;
@@ -33,14 +33,14 @@ module.exports.createListing = async (req, res) => {
   };
   
   module.exports.renderNewListingForm = async (req, res) => {
-    let club = await Clubs.findById(req.params.id);
+    let club = await Club.findById(req.params.id);
     res.render("listings/newListing.ejs", {club});
   };
 
   module.exports.renderEditListingForm = async (req, res)=>{
     let {id, id2} = req.params;
     let listing = await Listing.findById(id2);    
-    let club = await Clubs.findById(id);
+    let club = await Club.findById(id);
     if(!listing){
         req.flash("error", "Listing you requested for does not exist!");
         res.redirect(`/clubs/${id}/lisitings`);

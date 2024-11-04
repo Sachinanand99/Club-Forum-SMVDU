@@ -1,14 +1,14 @@
-const Clubs = require("../models/club");
+const Club = require("../models/club");
 const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
-  const allClubs = await Clubs.find({});
+  const allClubs = await Club.find({});
     res.render("clubs/index.ejs", {allClubs});
 }
 
 module.exports.showClub = async (req, res) => {
   let { id } = req.params;
-  const club = await Clubs.findById(id)
+  const club = await Club.findById(id)
   if (!club) {
     req.flash("error", "Club you requested for does not exist!");
     res.redirect("/Clubs");
@@ -22,7 +22,7 @@ module.exports.renderNewClubForm = (req, res) => {
 
 
 module.exports.createClub = async (req, res) => {
-  const newClub = new Clubs(req.body.club);
+  const newClub = new Club(req.body.club);
   const imageFile = req.files.find(file => file.fieldname === 'club[image]');
   const coordinatorFiles = req.files.filter(file => file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]'));
   let url = imageFile.path;
@@ -47,7 +47,7 @@ module.exports.createClub = async (req, res) => {
 
 module.exports.deleteClub = async (req, res) => {
   let { id } = req.params;
-  let deletedClub = await Clubs.findByIdAndDelete(id);
+  let deletedClub = await Club.findByIdAndDelete(id);
   console.log(deletedClub);
   req.flash("success", "Club Deleted!");
   res.redirect("/clubs");
@@ -55,7 +55,7 @@ module.exports.deleteClub = async (req, res) => {
 
 module.exports.renderNewClubEditForm = async (req, res) => {
   let { id } = req.params;
-  const club = await Clubs.findById(id);
+  const club = await Club.findById(id);
   if(!club){
     req.flash("error", "Club you requested for does not exist!");
     res.redirect("/clubs");
@@ -67,11 +67,11 @@ res.render("clubs/editClub.ejs", {club});
 module.exports.updateClub = async (req, res) => {
   let { id } = req.params;
   try {
-    const collection = await Clubs.findById(id);
+    const collection = await Club.findById(id);
     let coordinators = collection.coordinators;
     console.log(coordinators);
 
-    let club = await Clubs.findByIdAndUpdate(id, { ...req.body.club }, { new: true });
+    let club = await Club.findByIdAndUpdate(id, { ...req.body.club }, { new: true });
 
     const imageFile = req.files.find(file => file.fieldname === 'club[image]');
     const coordinatorFiles = req.files.filter(file => file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]'));

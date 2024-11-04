@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const initData = require("./data.js");
-const Clubs = require("../models/club.js");
+const Club = require("../models/club.js");
 
 const MONGO_URL =
   "mongodb://localhost:27017/clubs";
@@ -18,12 +18,12 @@ async function main() {
 }
 
 const initDB = async () => {
-    await Clubs.deleteMany({});
+    await Club.deleteMany({});
     const updatedData = initData.data.map((obj) => ({
       ...obj,
       coordinators: "671685e7999bd242bdbf1eb3",
     }));
-    await Clubs.insertMany(initData.data);
+    await Club.insertMany(initData.data);
 }
 
 initDB();

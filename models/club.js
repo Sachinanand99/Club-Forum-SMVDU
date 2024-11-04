@@ -20,12 +20,12 @@ const clubSchema = new Schema({
     url: String,
     fileName: String,
   },
-  listings: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Listing",
-    },
-  ],
+  // listings: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "Listing",
+  //   },
+  // ],
   description: String,
   about: [
     {
@@ -52,9 +52,9 @@ const clubSchema = new Schema({
 
 clubSchema.post("findOneAndDelete", async (club) => {
   if (club) {
-    await Listing.deleteMany({ _id: { $in: club.listings } });
+    // await Listing.deleteMany({ _id: { $in: club.listings } });
   }
 });
 
-const Clubs = mongoose.model("Clubs", clubSchema);
-module.exports = Clubs;
+const Club = mongoose.model("Club", clubSchema);
+module.exports = Club;
