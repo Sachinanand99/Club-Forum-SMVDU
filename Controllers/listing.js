@@ -17,9 +17,10 @@ module.exports.createListing = async (req, res) => {
         newListing.image = { url, fileName };
     }
     newListing.author = req.user._id;
-    newListing.club = req.params.id;
-    club.listings.push(newListing);
-    await club.save();
+  newListing.club = req.params.id;
+  // console.log(newListing);
+    // club.listings.push(newListing);
+    // await club.save();
     await newListing.save();
     req.flash("success", "New Club created!");
     res.redirect(`/clubs/${req.params.id}/listings`);

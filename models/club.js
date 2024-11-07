@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Listing = require("./listing.js");
 
 const clubSchema = new Schema({
   title: {
@@ -14,45 +15,29 @@ const clubSchema = new Schema({
       },
       name: String,
       rollNo: String,
-    }
+    },
   ],
-  image: { 
+  image: {
     url: String,
     fileName: String,
   },
-  // listings: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "Listing",
-  //   },
-  // ],
   description: String,
   about: [
     {
       title: String,
       desc: String,
-    }
+    },
   ],
   admins: [
     {
       email: String,
     },
   ],
-  coordinators: [
-    {
-      name: String,
-      rollNo: String,
-      img:{
-        url: String,
-        fileName: String,
-      }
-    }
-  ]
 });
 
 clubSchema.post("findOneAndDelete", async (club) => {
   if (club) {
-    // await Listing.deleteMany({ _id: { $in: club.listings } });
+    await Listing.deleteMany({ club: club._id });
   }
 });
 

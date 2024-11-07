@@ -30,6 +30,6 @@ module.exports.validateListing = (req, res, next) => {
 
 
 module.exports.isAdmin = (req, res, next) =>{
-  console.log("fine");
+  console.log("isAdmin");
   next();
 }

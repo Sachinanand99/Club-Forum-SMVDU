@@ -77,7 +77,6 @@
 <script>
     function updateAboutSectionIds() {
             const aboutSections = document.querySelectorAll('.about-section');
-            console.log(aboutSections);
             aboutSections.forEach((section, index) => {
                 section.querySelector('.form-label[for^="about-title"]').setAttribute('for', `about-title-${index}`);
                 section.querySelector('.form-control[id^="about-title"]').setAttribute('id', `about-title-${index}`);
@@ -90,7 +89,6 @@
         }
         function updateCoordinatorSectionIds() {
             const coordinatorSections = document.querySelectorAll('.coordinator-section');
-            console.log(coordinatorSections);
             coordinatorSections.forEach((section, index) => {
                 section.querySelector('.form-label[for^="coordinator-name"]').setAttribute('for', `coordinator-name-${index}`);
                 section.querySelector('.form-control[id^="coordinator-name"]').setAttribute('id', `coordinator-name-${index}`);

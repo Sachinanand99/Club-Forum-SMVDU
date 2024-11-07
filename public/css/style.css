@@ -1,3 +1,7 @@
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+
 /* navbar */
 nav{
     padding: 0px !important;
@@ -248,6 +252,7 @@ footer .fa-brands{
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .about-section{
     flex: 1 1 48%;
     border: 1px solid black ;
@@ -292,4 +297,70 @@ footer .fa-brands{
 /* edit club page */
 .coord-img{
     text-align: center;
+}
+
+
+/* show listing */
+.post-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.post-box .post {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    background-color: #fff;
+    width: 300px;
+    margin: 0;
+}
+
+.post-box .post:hover {
+    transform: scale(1.05);
+}
+
+.post-box .post .image img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.post-box .post .info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.post-box .post .info .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.post-box .post .info .desc {
+    font-size: 0.9em;
+    color: #666;
+    flex-grow: 1;
+}
+
+.post-box .post .info .desc span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* viewListing */
+
+.post-container .card img{
+    height: 400px;
+    width: 400px;
 }
