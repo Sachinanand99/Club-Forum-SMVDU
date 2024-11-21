@@ -20,10 +20,9 @@
             </form>
         </div>
     </div>
-
     <div class="mt-5">
         <h5>Comments</h5>
-        <form action="comments" method="post">
+        <form action="<%= id2 %>/comments" method="post">
             <div class="mb-3">
                 <label for="comment" class="form-label">Add a comment</label>
                 <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>

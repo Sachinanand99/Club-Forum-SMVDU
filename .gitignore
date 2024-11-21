@@ -5,3 +5,4 @@ notes.txt
 yarn.lock
 package-lock.json
 init/images/*
+.idea

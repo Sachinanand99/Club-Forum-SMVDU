@@ -34,7 +34,9 @@
                             <% } %>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
+                     <% if (process.env.ADMIN_LIST.includes(currUser.email)) { %>
                         <li><a class="dropdown-item" href="/clubs/new">Create Club</a></li>
+                    <% } %>
                         <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
                     </ul>
                 </div>

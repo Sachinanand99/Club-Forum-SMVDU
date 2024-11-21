@@ -1,5 +1,25 @@
 <% layout("/layouts/boilerplate") %>
 
-<% for (let listing of allListings){ %>
+<!-- <% for (let listing of allListings){ %>
     <%= listing %>
-<% } %> 
+<% } %>  -->
+
+<div id="carousel" class="carousel slide">
+    <div class="carousel-inner">
+        <% for (let i=0; i < clubs.length; i++) { %>
+            <% if (clubs[i].image.url) { %>
+                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                    <img src="<%= clubs[i].image.url %>" class="d-block w-100" alt="...">
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

@@ -19,10 +19,6 @@ const commentSchema = new Schema({
     type: Number,
     default: 0,
   },
-  image: {
-    url: String,
-    fileName: String,
-  },
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

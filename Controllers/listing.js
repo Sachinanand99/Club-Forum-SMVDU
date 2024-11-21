@@ -3,8 +3,9 @@ const Club = require("../models/club");
 
 
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
+  const allListings = await Listing.find({});
+  const clubs = await Club.find({});
+    res.render("listings/index.ejs", { allListings, clubs });
 }
 
 
@@ -18,9 +19,6 @@ module.exports.createListing = async (req, res) => {
     }
     newListing.author = req.user._id;
   newListing.club = req.params.id;
-  // console.log(newListing);
-    // club.listings.push(newListing);
-    // await club.save();
     await newListing.save();
     req.flash("success", "New Club created!");
     res.redirect(`/clubs/${req.params.id}/listings`);
