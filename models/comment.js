@@ -12,14 +12,6 @@ const commentSchema = new Schema({
     ref: "User",
     autopopulate: true,
   },
-  upVote: {
-    type: Number,
-    default: 0,
-  },
-  downVote: {
-    type: Number,
-    default: 0,
-  },
   replies: [
     {
       type: Schema.Types.ObjectId,
@@ -31,6 +23,10 @@ const commentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Listing",
   },
+  commentType: {
+    type: String,
+    default: "comment",
+  }
 });
 
 commentSchema.plugin(require("mongoose-autopopulate"));

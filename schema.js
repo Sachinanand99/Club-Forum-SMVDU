@@ -48,7 +48,9 @@ module.exports.clubSchema = Joi.object({
 });
 
 module.exports.commentSchema = Joi.object({
-  comment: Joi.object({
     comment: Joi.string().required(),
-  }).required(),
 });
+
+module.exports.replyCommentSchema = Joi.object({
+    reply: Joi.string().required(),
+})

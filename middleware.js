@@ -1,7 +1,13 @@
-const { clubSchema, listingSchema, commentSchema } = require("./schema.js")
+const {
+  clubSchema,
+  listingSchema,
+  commentSchema,
+  replyCommentSchema,
+} = require("./schema.js");
 const express = require("express");
 const ExpressError = require("./utils/ExpressError.js")
 const Club = require("./models/club.js");
+const Comment = require("./models/comment.js");
 
 const getAdminEmails = async (clubId) => {
   try {
@@ -51,6 +57,14 @@ module.exports.validateComment = (req, res, next) => {
    next();
 }
 
+module.exports.validateReply = (req, res, next) => {
+  let { error } = replyCommentSchema.validate(req.body);
+  if (error) {
+    throw new ExpressError(400, error);
+  }
+  next();
+};
+
 module.exports.isAdmin = async (req, res, next) => {
   console.log("isadmin function ran");
   let clubId = req.params.id;
@@ -84,4 +98,15 @@ module.exports.isSuperAdmin = (req, res, next) => {
   else {
       throw new ExpressError(403, "Access Denied!");
   }
+}
+
+module.exports.isAuthor = async (req, res, next) => {
+  let { id3 } = req.params;
+  console.log("isAuthor function ran!");
+  let comment = await Comment.findById(id3);
+  if (!comment.author.equals(res.locals.currUser._id)) {
+    req.flash("error", "You are not the author of this comment!");
+    return res.redirect(`/clubs/${req.params.id}/listings/${req.params.id2}`);
+  }
+  next();
 }

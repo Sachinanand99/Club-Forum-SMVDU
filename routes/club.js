@@ -13,7 +13,10 @@ const {
   validateComment,
   isAdmin,
   isSuperAdmin,
+  validateReply,
+  isAuthor,
 } = require("../middleware");
+
 const { storage } = require("../cloudConfig.js");
 
 const uploadClubImg = multer({
@@ -101,16 +104,34 @@ router
     wrapAsync(listingController.handleDeleteListing)
   );
 
-router.route("/:id/listings/:id2/comments").post(
-  ensureAuthenticated,
-  // validateComment,
-  wrapAsync(commentController.createComment)
-);
+router
+  .route("/:id/listings/:id2/comments")
+  .post(
+    ensureAuthenticated,
+    validateComment,
+    wrapAsync(commentController.createComment)
+  );
 
-router.route("/:id/listings/:id2/comments/:id3/reply").post(
-  ensureAuthenticated,
-  // validateComment,
-  wrapAsync(commentController.replyComment)
-)
+router
+  .route("/:id/listings/:id2/comments/:id3")
+  .put(
+    ensureAuthenticated,
+    isAuthor,
+    validateComment,
+    wrapAsync(commentController.updateComment)
+  )
+  .delete(
+    ensureAuthenticated,
+    isAuthor,
+    wrapAsync(commentController.deleteComment)
+  );
+
+router
+  .route("/:id/listings/:id2/comments/:id3/reply")
+  .post(
+    ensureAuthenticated,
+    validateReply,
+    wrapAsync(commentController.replyComment)
+  );
 
 module.exports = router;

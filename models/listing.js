@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const Comment = require("./comment"); 
 const listingSchema = new Schema({
   title: {
     type: String,
@@ -32,6 +32,12 @@ const listingSchema = new Schema({
 listingSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
   next();
+});
+
+listingSchema.post("findOneAndDelete", async (doc) => {
+  if (doc) {
+    await Comment.deleteMany({ listingId: doc._id });
+  }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

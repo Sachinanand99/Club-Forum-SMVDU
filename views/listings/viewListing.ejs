@@ -45,6 +45,23 @@
           <p class="card-text"><%= comment.comment %></p>
           <p class="text-muted">Posted by <%= comment.author ? comment.author.username : 'Unknown' %> 
           on <%= comment.createdAt ? comment.createdAt.toDateString() : 'Unknown date' %></p>
+
+          <!-- Update Comment Form -->
+          <button class="btn btn-sm btn-outline-secondary edit-button" data-id="<%= comment._id %>">Edit</button>
+          <form class="edit-form mt-3" action="<%= id2 %>/comments/<%= comment._id %>?_method=PUT" method="post" style="display: none;">
+            <div class="mb-3">
+              <label for="editComment" class="form-label">Edit Comment</label>
+              <textarea class="form-control" name="comment" rows="2" required><%= comment.comment %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Update Comment</button>
+          </form>
+
+          <!-- Delete Comment Form -->
+          <form class="delete-form mt-3 d-inline" action="<%= id2 %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger btn-sm">Delete Comment</button>
+          </form>
+
+          <!-- Reply Button and Form -->
           <button class="btn btn-sm btn-outline-secondary reply-button" data-id="<%= comment._id %>">Reply</button>
           <form class="reply-form mt-3" action="<%= id2 %>/comments/<%= comment._id %>/reply" method="post" style="display: none;">
             <div class="mb-3">
@@ -53,6 +70,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
           </form>
+
           <% if (comment.replies && comment.replies.length) { %>
             <div class="replies mt-3">
               <% comment.replies.forEach(function(reply) { %>
@@ -65,7 +83,9 @@
     <% } %>
 
     <% comments.forEach(function(comment) { %>
-      <%= displayComment(comment, 0) %>
+      <% if (comment.commentType !== 'reply') { %>
+        <%= displayComment(comment, 0) %>
+      <% } %>
     <% }) %>
   </div>
 </div>
@@ -76,6 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function() {
       const replyForm = this.nextElementSibling;
       replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+
+  document.querySelectorAll('.edit-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      const editForm = this.nextElementSibling;
+      editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
     });
   });
 });
