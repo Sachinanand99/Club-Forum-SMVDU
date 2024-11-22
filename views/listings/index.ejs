@@ -4,7 +4,7 @@
     <%= listing %>
 <% } %>  -->
 
-<div id="carousel" class="carousel slide">
+<div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
     <div class="carousel-inner">
         <% for (let i=0; i < clubs.length; i++) { %>
             <% if (clubs[i].image.url) { %>
