@@ -137,9 +137,6 @@ footer .fa-brands{
 
 /* club specific pages */
 
-.heading-club .heading-club-image{
-    background-size: cover; background-position: center; padding: 20px; opacity: 0.75;
-}
 
 .heading-club .heading-club-image h2{
     text-align: center;

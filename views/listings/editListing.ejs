@@ -1,38 +1,61 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div class="row">
-        <div class="col-8 offset-2 mt-3">
-            <h3>Update Post for <%= club.title%></h3>
-            <form id="clubForm" method="post" action="edit?_method=PUT" class="needs-validation" novalidate
-                enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" id="title" class="form-control" value="<%= listing.title %>"
-                        placeholder="Add your club title" required>
-                    <div class="valid-feedback">Title looks good!</div>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" id="description" placeholder="enter description"
-                        class="form-control" required><%= listing.description %></textarea>
-                    <div class="invalid-feedback">Please enter a description.</div>
-                </div>
-                <div class="row">
-                    <% if (listing.image.url){ %>
-                    <div>
-                        <div>Original Image</div>
-                        <div>
-                            <img src="<%= originalImageUrl %>" alt="Original Image">
-                        </div>
-                    </div>
-                    <% } %>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Update Club Image</label>
-                        <input type="file" name="listing[image]" id="image" class="form-control" >
-                    </div>
-                </div>
-                <button class="btn btn-dark add-btn mt-3 mb-3">Update Post</button>
-            </form>
+<div class="row">
+  <div class="col-8 offset-2 mt-3">
+    <h3>Update Post for <%= club.title%></h3>
+    <form
+      id="clubForm"
+      method="post"
+      action="edit?_method=PUT"
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          name="listing[title]"
+          id="title"
+          class="form-control"
+          value="<%= listing.title %>"
+          placeholder="Add your club title"
+          required
+        />
+        <div class="valid-feedback">Title looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          id="description"
+          placeholder="enter description"
+          class="form-control"
+          required
+        >
+<%= listing.description %></textarea
+        >
+        <div class="invalid-feedback">Please enter a description.</div>
+      </div>
+      <div class="row">
+        <% if (listing.image.url){ %>
+        <div>
+          <div>Original Image</div>
+          <div>
+            <img src="<%= originalImageUrl %>" alt="Original Image" />
+          </div>
         </div>
-    </div>
-
+        <% } %>
+        <div class="mb-3">
+          <label for="image" class="form-label">Update Club Image</label>
+          <input
+            type="file"
+            name="listing[image]"
+            id="image"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <button class="btn btn-dark add-btn mt-3 mb-3">Update Post</button>
+    </form>
+  </div>
+</div>
