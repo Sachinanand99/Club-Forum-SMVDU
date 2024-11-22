@@ -46,20 +46,23 @@
           <p class="text-muted">Posted by <%= comment.author ? comment.author.username : 'Unknown' %> 
           on <%= comment.createdAt ? comment.createdAt.toDateString() : 'Unknown date' %></p>
 
-          <!-- Update Comment Form -->
-          <button class="btn btn-sm btn-outline-secondary edit-button" data-id="<%= comment._id %>">Edit</button>
-          <form class="edit-form mt-3" action="<%= id2 %>/comments/<%= comment._id %>?_method=PUT" method="post" style="display: none;">
-            <div class="mb-3">
-              <label for="editComment" class="form-label">Edit Comment</label>
-              <textarea class="form-control" name="comment" rows="2" required><%= comment.comment %></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">Update Comment</button>
-          </form>
+          <!-- Conditional Check for Update/Delete Buttons -->
+          <% if (comment.author && comment.author._id.toString() === currUser._id.toString()) { %>
+            <!-- Update Comment Form -->
+            <button class="btn btn-sm btn-outline-secondary edit-button" data-id="<%= comment._id %>">Edit</button>
+            <form class="edit-form mt-3" action="<%= id2 %>/comments/<%= comment._id %>?_method=PUT" method="post" style="display: none;">
+              <div class="mb-3">
+                <label for="editComment" class="form-label">Edit Comment</label>
+                <textarea class="form-control" name="comment" rows="2" required><%= comment.comment %></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Update Comment</button>
+            </form>
 
-          <!-- Delete Comment Form -->
-          <form class="delete-form mt-3 d-inline" action="<%= id2 %>/comments/<%= comment._id %>?_method=DELETE" method="post">
-            <button type="submit" class="btn btn-danger btn-sm">Delete Comment</button>
-          </form>
+            <!-- Delete Comment Form -->
+            <form class="delete-form mt-3 d-inline" action="<%= id2 %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+              <button type="submit" class="btn btn-danger btn-sm">Delete Comment</button>
+            </form>
+          <% } %>
 
           <!-- Reply Button and Form -->
           <button class="btn btn-sm btn-outline-secondary reply-button" data-id="<%= comment._id %>">Reply</button>
