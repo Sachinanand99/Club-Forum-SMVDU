@@ -73,7 +73,7 @@ router
     ensureAuthenticated,
     isAdmin,
     uploadListingImg.single("listing[image]"),
-    // validateListing,
+    validateListing,
     wrapAsync(listingController.createListing)
   );
 
@@ -88,7 +88,7 @@ router
     ensureAuthenticated,
     isAdmin,
     uploadListingImg.single("listing[image]"),
-    // validateListing,
+    validateListing,
     wrapAsync(listingController.handleUpdateListing)
   );
 
