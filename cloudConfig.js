@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "SMVDU_CLUBS",
-    allowedFormats: ["png", "jpg", "jpeg"], // supports promises as well
+    allowedFormats: ["png", "jpg", "jpeg"], 
   },
 });
 

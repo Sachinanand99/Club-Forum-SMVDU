@@ -17,84 +17,94 @@ const {
 const { storage } = require("../cloudConfig.js");
 
 const uploadClubImg = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-      if (file.fieldname.startsWith('club[coordinators][') && file.fieldname.endsWith('][img]')) {
-        cb(null, true);
-      } else if (file.fieldname === 'club[image]') {
-        cb(null, true);
-      } else {
-        cb(new Error('Unexpected field'));
-      }
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.fieldname.startsWith("club[coordinators][") &&
+      file.fieldname.endsWith("][img]")
+    ) {
+      cb(null, true);
+    } else if (file.fieldname === "club[image]") {
+      cb(null, true);
+    } else {
+      cb(new Error("Unexpected field"));
     }
-  });
+  },
+});
 
-const uploadListingImg = multer({storage: storage});
+const uploadListingImg = multer({ storage: storage });
 
-
-router.route("/")
-    .get(wrapAsync(clubController.index))
-    .post(
-      ensureAuthenticated,
-      isSuperAdmin,
-        uploadClubImg.any(),
-        // validateClub,
-        wrapAsync(clubController.createClub)
-      );
+router
+  .route("/")
+  .get(wrapAsync(clubController.index))
+  .post(
+    ensureAuthenticated,
+    isSuperAdmin,
+    uploadClubImg.any(),
+    validateClub,
+    wrapAsync(clubController.createClub)
+  );
 
 router.get("/new", ensureAuthenticated, clubController.renderNewClubForm);
 
-router.get("/:id/edit", ensureAuthenticated, clubController.renderNewClubEditForm)
+router.get(
+  "/:id/edit",
+  ensureAuthenticated,
+  clubController.renderNewClubEditForm
+);
 
-router.route("/:id")
-    .get(wrapAsync(clubController.showClub))
-    .put(
-        ensureAuthenticated,
-        isAdmin,
-        uploadClubImg.any(),
-        // validateClub,
-        wrapAsync(clubController.updateClub))
-  .delete(
-    isSuperAdmin,
-    wrapAsync(clubController.deleteClub)
+router
+  .route("/:id")
+  .get(wrapAsync(clubController.showClub))
+  .put(
+    ensureAuthenticated,
+    isAdmin,
+    uploadClubImg.any(),
+    validateClub,
+    wrapAsync(clubController.updateClub)
+  )
+  .delete(isSuperAdmin, wrapAsync(clubController.deleteClub));
+
+router.route("/:id/listings").get(wrapAsync(listingController.showListings));
+router
+  .route("/:id/listings/new")
+  .get(listingController.renderNewListingForm)
+  .post(
+    ensureAuthenticated,
+    isAdmin,
+    uploadListingImg.single("listing[image]"),
+    // validateListing,
+    wrapAsync(listingController.createListing)
   );
 
-router.route("/:id/listings")
-    .get(wrapAsync(listingController.showListings));
-;
+router
+  .route("/:id/listings/:id2/edit")
+  .get(
+    ensureAuthenticated,
+    isAdmin,
+    wrapAsync(listingController.renderEditListingForm)
+  )
+  .put(
+    ensureAuthenticated,
+    isAdmin,
+    uploadListingImg.single("listing[image]"),
+    // validateListing,
+    wrapAsync(listingController.handleUpdateListing)
+  );
 
 router
-    .route("/:id/listings/new")
-    .get(listingController.renderNewListingForm)
-    .post(
-      ensureAuthenticated,
-      isAdmin,
-      uploadListingImg.single("listing[image]"),
-      // validateListing,
-      wrapAsync(listingController.createListing)
+  .route("/:id/listings/:id2/")
+  .get(wrapAsync(listingController.viewListing))
+  .delete(
+    ensureAuthenticated,
+    isAdmin,
+    wrapAsync(listingController.handleDeleteListing)
+  );
+
+router.route("/:id/listings/:id2/comments").post(
+  ensureAuthenticated,
+  // validateComment,
+  wrapAsync(commentController.createComment)
 );
 
-
-router.route("/:id/listings/:id2/edit")
-.get(ensureAuthenticated, isAdmin, wrapAsync(listingController.renderEditListingForm))
-.put(ensureAuthenticated,
-  isAdmin,
-  uploadListingImg.single("listing[image]"),
-  wrapAsync(listingController.handleUpdateListing))
-;
-
-router.route("/:id/listings/:id2/")
-.get(wrapAsync(listingController.viewListing))
-.delete(ensureAuthenticated,
-  isAdmin,
-  wrapAsync(listingController.handleDeleteListing)
-);
-
-router
-  .route("/:id/listings/:id2/comments")
-  .post(ensureAuthenticated,
-    // validateComment,
-    wrapAsync(commentController.createComment)
-);
-
-module.exports = router
+module.exports = router;

@@ -48,7 +48,6 @@ module.exports.createClub = async (req, res) => {
 module.exports.deleteClub = async (req, res) => {
   let { id } = req.params;
   let deletedClub = await Club.findByIdAndDelete(id);
-  // console.log(deletedClub);
   req.flash("success", "Club Deleted!");
   res.redirect("/clubs");
 }
@@ -69,8 +68,6 @@ module.exports.updateClub = async (req, res) => {
   try {
     const collection = await Club.findById(id);
     let coordinators = collection.coordinators;
-    // console.log(coordinators);
-
     let club = await Club.findByIdAndUpdate(id, { ...req.body.club }, { new: true });
 
     const imageFile = req.files.find(file => file.fieldname === 'club[image]');
@@ -99,7 +96,6 @@ module.exports.updateClub = async (req, res) => {
     club.coordinators = coordinators;
     await club.save();
 
-    // console.log(club.coordinators);
     req.flash("success", "Club Updated!");
     res.redirect(`/clubs/${id}`);
   } catch (err) {

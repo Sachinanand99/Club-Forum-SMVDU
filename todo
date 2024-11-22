@@ -18,7 +18,6 @@ login page template
 navbar redesign
 create clubs route and perform crud on club.
 create clubs templates.
-(done)
 
 4.
 create listing route and perform crud on listing.
