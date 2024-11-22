@@ -37,7 +37,6 @@ module.exports.validateClub = (req, res, next) => {
 
 module.exports.validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
-  console.log(error);
   if (error) {
     throw new ExpressError(400, error);
   }
@@ -46,7 +45,6 @@ module.exports.validateListing = (req, res, next) => {
 
 module.exports.validateComment = (req, res, next) => {
    let { error } = commentSchema.validate(req.body);
-   console.log(error);
    if (error) {
      throw new ExpressError(400, error);
    }
