@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const Club = require("../models/club");
+const Comment = require("../models/comment");
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -53,9 +54,14 @@ module.exports.renderEditListingForm = async (req, res) => {
 };
 
 module.exports.viewListing = async (req, res) => {
-  let { id2 } = req.params;
-  let listing = await Listing.findById(id2);
-  res.render("listings/viewListing.ejs", { listing, id2 });
+  try {
+    const { id2 } = req.params;
+    const listing = await Listing.findById(id2).populate("author");
+    const comments = await Comment.find({ listingId: id2 })
+    res.render("listings/viewListing.ejs", { listing, comments, id2 });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports.handleUpdateListing = async (req, res) => {

@@ -107,4 +107,10 @@ router.route("/:id/listings/:id2/comments").post(
   wrapAsync(commentController.createComment)
 );
 
+router.route("/:id/listings/:id2/comments/:id3/reply").post(
+  ensureAuthenticated,
+  // validateComment,
+  wrapAsync(commentController.replyComment)
+)
+
 module.exports = router;

@@ -50,9 +50,5 @@ module.exports.clubSchema = Joi.object({
 module.exports.commentSchema = Joi.object({
   comment: Joi.object({
     comment: Joi.string().required(),
-    // image: Joi.object({
-    //   url: Joi.string().allow("", null),
-    //   fileName: Joi.string().allow("", null),
-    // }).required(),
   }).required(),
 });
