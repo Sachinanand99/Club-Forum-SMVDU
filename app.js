@@ -144,6 +144,19 @@ app.use("/clubs", clubRouter);
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter)
 
+// unreachable pages
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page not found"));
+});
+
+// custom error message
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong!" } = err;
+  console.log(err);
+  res.status(statusCode).render("includes/error.ejs", { err });
+});
+
+
 app.listen(8080, '0.0.0.0', () => {
   console.log("server is listening to port 8080");
 });
