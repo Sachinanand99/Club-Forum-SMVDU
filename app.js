@@ -7,6 +7,8 @@ const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
 
+const ExpressError = require("./utils/ExpressError.js");
+
 const ejsMate = require("ejs-mate");
 
 const mongoose = require("mongoose");
