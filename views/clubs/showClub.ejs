@@ -3,35 +3,20 @@
 <div>
   <div class="heading-club">
     <div class="heading-club-image" style="background-image: url('<%= club.image.url %>');">
-      <h2>
-        <%= club.title %>
-      </h2>
+      <h2><%= club.title %></h2>
     </div>
 
     <div class="about-post">
-      <% if (!club.followers.includes(currUser._id)) { %>
-      <form action="/clubs/<%= club._id %>/follow" method="POST">
-        <button class="btn btn-success mt-3">Follow</button>
-      </form>
-      <% } else { %>
-      <form action="/clubs/<%= club._id %>/unfollow" method="POST">
-        <button class="btn btn-danger mt-3">Unfollow</button>
-      </form>
-      <% } %>
       <% if (!(club.about === undefined || club.about.length == 0)) { %>
       <h3>About <%= club.title %></h3>
       <% } %>
       <% if (isAdmin) { %>
       <form action="/clubs/<%= club._id %>/listings/new">
-        <button class="btn btn-primary">
-          New Post
-        </button>
+        <button class="btn btn-primary">New Post</button>
       </form>
       <% } %>
       <form action="/clubs/<%= club._id %>/listings/">
-        <button class="btn btn-secondary mt-3">
-          View Posts
-        </button>
+        <button class="btn btn-secondary mt-3">View Posts</button>
       </form>
     </div>
   </div>
@@ -48,9 +33,7 @@
         </h2>
         <div id="collapse<%= i %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>
-              <%= club.about[i].desc %>
-            </strong>
+            <div class="pre-content"><%= club.about[i].desc %></div> 
           </div>
         </div>
       </div>
@@ -67,13 +50,9 @@
             <img src="<%= club.coordinators[i].img.url %>" alt="">
           </div>
           <div class="coord-name">
-            <h3>
-              <%= club.coordinators[i].name %>
-            </h3>
+            <h3><%= club.coordinators[i].name %></h3>
           </div>
-          <div class="coord-rollNo">
-            (<%= club.coordinators[i].rollNo %>)
-          </div>
+          <div class="coord-rollNo">(<%= club.coordinators[i].rollNo %>)</div>
         </div>
         <% } %>
       </div>
@@ -82,18 +61,12 @@
   <% if (isAdmin) { %>
   <div class="action showclub-action">
     <form action="/clubs/<%= club._id %>/edit" class="clubspec-form">
-      <button class="btn btn-success">
-        Update Club
-      </button>
+      <button class="btn btn-success">Update Club</button>
     </form>
     <form method="post" action="/clubs/<%= club._id %>?_method=DELETE" class="clubspec-form">
-      <button class="btn btn-danger">
-        Delete Club
-      </button>
+      <button class="btn btn-danger">Delete Club</button>
     </form>
   </div>
   <% } %>
-  <div class="club-views">
-    Total club Views: <%= club.views %>
-  </div>
+  <div class="club-views">Total club Views: <%= club.views %></div>
 </div>

@@ -15,7 +15,7 @@
     <% } %>
     <div class="card-body">
       <h5 class="card-title"><%= listing.title %></h5>
-      <p class="card-text"><%= listing.description %></p>
+      <p class="card-text"><div class="pre-content"><%= listing.description %></div></p>
       <p class="text-muted">Posted by <%= listing.author.username %> on <%= listing.createdAt.toDateString() %></p>
       <% if (isAdmin){ %>
       <a href="<%= id2 %>/edit" class="btn btn-primary">Edit Post</a>
