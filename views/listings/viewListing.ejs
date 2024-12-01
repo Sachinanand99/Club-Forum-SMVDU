@@ -17,10 +17,12 @@
       <h5 class="card-title"><%= listing.title %></h5>
       <p class="card-text"><%= listing.description %></p>
       <p class="text-muted">Posted by <%= listing.author.username %> on <%= listing.createdAt.toDateString() %></p>
+      <% if (isAdmin){ %>
       <a href="<%= id2 %>/edit" class="btn btn-primary">Edit Post</a>
       <form method="post" action="?_method=DELETE" class="d-inline">
         <button type="submit" class="btn btn-danger">Delete Post</button>
       </form>
+      <% } %>
     </div>
   </div>
 

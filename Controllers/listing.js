@@ -2,6 +2,20 @@ const Listing = require("../models/listing");
 const Club = require("../models/club");
 const Comment = require("../models/comment");
 
+getAdminEmails = async (clubId) => {
+  try {
+    const club = await Club.findById(clubId);
+    if (!club) {
+      console.log(`Club ID ${clubId} not found!`);
+    }
+    const adminEmails = club.admins.map((admin) => admin.email).join(", ");
+    return adminEmails;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   const clubs = await Club.find({});
@@ -55,10 +69,17 @@ module.exports.renderEditListingForm = async (req, res) => {
 
 module.exports.viewListing = async (req, res) => {
   try {
-    const { id2 } = req.params;
+    const { id, id2 } = req.params;
     const listing = await Listing.findById(id2).populate("author");
     const comments = await Comment.find({ listingId: id2 })
-    res.render("listings/viewListing.ejs", { listing, comments, id2 });
+    let isAdmin = false;
+    if (req.user) {
+      let clubAdmins = await getAdminEmails(id);
+      isAdmin =
+        process.env.ADMIN_LIST.includes(req.user.email) ||
+        clubAdmins.includes(req.user.email);
+    }
+    res.render("listings/viewListing.ejs", { listing, comments, id2, isAdmin:isAdmin });
   } catch (err) {
     console.error(err);
   }
