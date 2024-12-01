@@ -7,6 +7,15 @@
     </div>
 
     <div class="about-post">
+      <% if (!club.followers.includes(currUser._id)) { %>
+      <form action="/clubs/<%= club._id %>/follow" method="POST">
+        <button class="btn btn-success mt-3">Follow</button>
+      </form>
+      <% } else { %>
+      <form action="/clubs/<%= club._id %>/unfollow" method="POST">
+        <button class="btn btn-danger mt-3">Unfollow</button>
+      </form>
+      <% } %>
       <% if (!(club.about === undefined || club.about.length == 0)) { %>
       <h3>About <%= club.title %></h3>
       <% } %>
