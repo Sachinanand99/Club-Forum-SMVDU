@@ -1,6 +1,8 @@
 const Listing = require("../models/listing");
 const Club = require("../models/club");
 const Comment = require("../models/comment");
+const User = require("../models/user");
+const { sendEmail } = require("../utils/emailSender");
 
 getAdminEmails = async (clubId) => {
   try {
@@ -25,15 +27,35 @@ module.exports.index = async (req, res) => {
 module.exports.createListing = async (req, res) => {
   let club = await Club.findById(req.params.id);
   const newListing = new Listing(req.body.listing);
+
   if (typeof req.file !== "undefined") {
     let url = req.file.path;
     let fileName = req.file.filename;
     newListing.image = { url, fileName };
   }
+
   newListing.author = req.user._id;
   newListing.club = req.params.id;
   await newListing.save();
-  req.flash("success", "New Club created!");
+
+  // Retrieve followers' emails
+  const registeredUsers = await User.find({ _id: { $in: club.followers } });
+  const emails = registeredUsers.map((user) => user.email);
+  console.log(newListing._id);
+
+  // Send emails to all followers
+  const pageLink = `${req.protocol}://${req.get("host")}/clubs/${
+    req.params.id
+  }/listings/${newListing._id}`;
+  console.log(pageLink);
+  const subject = `🌟 New Listing in ${club.title} 🌟`;
+  const text = `🚀 *${newListing.title}* has been added to the club *${club.title}*! 🌟\n\nCheck it out here: ${pageLink}\n\nThank you for following our club! 🎉`;
+  const html = ` <p>🚀 <strong>${newListing.title}</strong> has been added to the club <strong>${club.title}</strong>! 🌟</p> <p>🔗 <a href="${pageLink}">Check it out here</a></p> <p>Thank you for following our club! 🎉</p> `;
+  emails.forEach((email) => {
+    sendEmail(email, subject, text, html);
+  });
+
+  req.flash("success", "New Listing created!");
   res.redirect(`/clubs/${req.params.id}/listings`);
 };
 
@@ -71,7 +93,7 @@ module.exports.viewListing = async (req, res) => {
   try {
     const { id, id2 } = req.params;
     const listing = await Listing.findById(id2).populate("author");
-    const comments = await Comment.find({ listingId: id2 })
+    const comments = await Comment.find({ listingId: id2 });
     let isAdmin = false;
     if (req.user) {
       let clubAdmins = await getAdminEmails(id);
@@ -79,7 +101,12 @@ module.exports.viewListing = async (req, res) => {
         process.env.ADMIN_LIST.includes(req.user.email) ||
         clubAdmins.includes(req.user.email);
     }
-    res.render("listings/viewListing.ejs", { listing, comments, id2, isAdmin:isAdmin });
+    res.render("listings/viewListing.ejs", {
+      listing,
+      comments,
+      id2,
+      isAdmin: isAdmin,
+    });
   } catch (err) {
     console.error(err);
   }

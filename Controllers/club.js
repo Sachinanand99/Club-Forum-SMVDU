@@ -38,7 +38,7 @@ module.exports.showClub = async (req, res) => {
       clubAdmins.includes(req.user.email);
   }
 
-  res.render("clubs/showClubs", {
+  res.render("clubs/showClub", {
     club,
     isAdmin: isAdmin, 
   });
@@ -134,3 +134,31 @@ module.exports.updateClub = async (req, res) => {
   }
 };
 
+module.exports.followClub = async (req, res) => {
+  const { id } = req.params;
+  const club = await Club.findById(id);
+  if (!club) {
+    req.flash("error", "The club you requested for does not exist!");
+    return res.redirect("/clubs");
+  }
+  club.followers.push(req.user._id);
+  await club.save();
+  req.flash("success", "You are now following this club!");
+  res.redirect(`/clubs/${id}`);
+}
+
+module.exports.unfollowClub = async (req, res) => {
+  const { id } = req.params;
+  const club = await Club.findById(id);
+  if (!club) {
+    req.flash("error", "The club you requested for does not exist!");
+    return res.redirect("/clubs");
+  }
+  const followerIndex = club.followers.indexOf(req.user._id);
+  if (followerIndex > -1) {
+    club.followers.splice(followerIndex, 1);
+    await club.save();
+  }
+  req.flash("success", "You have unfollowed this club.");
+  res.redirect(`/clubs/${id}`);
+}

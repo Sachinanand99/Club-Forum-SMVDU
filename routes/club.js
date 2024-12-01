@@ -59,10 +59,7 @@ router.get(
 
 router
   .route("/:id")
-  .get(
-    increaseCount,
-    wrapAsync(clubController.showClub)
-  )
+  .get(increaseCount, wrapAsync(clubController.showClub))
   .put(
     ensureAuthenticated,
     isAdmin,
@@ -71,6 +68,15 @@ router
     wrapAsync(clubController.updateClub)
   )
   .delete(isSuperAdmin, wrapAsync(clubController.deleteClub));
+
+router.post("/:id/follow", ensureAuthenticated, clubController.followClub);
+
+router.post(
+  "/:id/unfollow",
+  ensureAuthenticated,
+  clubController.unfollowClub
+);
+
 
 router.route("/:id/listings").get(wrapAsync(listingController.showListings));
 router

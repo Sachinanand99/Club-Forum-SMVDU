@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Listing = require("./listing.js");
+
 const clubSchema = new Schema({
   title: {
     type: String,
@@ -36,6 +37,12 @@ const clubSchema = new Schema({
     type: Number,
     default: 0,
   },
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 clubSchema.post("findOneAndDelete", async (club) => {
