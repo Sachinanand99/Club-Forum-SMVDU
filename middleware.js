@@ -66,7 +66,6 @@ module.exports.validateReply = (req, res, next) => {
 };
 
 module.exports.isAdmin = async (req, res, next) => {
-  console.log("isadmin function ran");
   let clubId = req.params.id;
   let clubAdmins = await getAdminEmails(clubId);
   if (process.env.ADMIN_LIST) {
@@ -88,7 +87,6 @@ module.exports.isAdmin = async (req, res, next) => {
 };
 
 module.exports.isSuperAdmin = (req, res, next) => {
-  console.log("isSuperAdmin function ran");
   if (process.env.ADMIN_LIST) {
     if (process.env.ADMIN_LIST.includes(res.locals.currUser.email)) {
       next();
@@ -102,7 +100,6 @@ module.exports.isSuperAdmin = (req, res, next) => {
 
 module.exports.isAuthor = async (req, res, next) => {
   let { id3 } = req.params;
-  console.log("isAuthor function ran!");
   let comment = await Comment.findById(id3);
   if (!comment.author.equals(res.locals.currUser._id)) {
     req.flash("error", "You are not the author of this comment!");

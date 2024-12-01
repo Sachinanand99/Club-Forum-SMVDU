@@ -41,7 +41,6 @@ module.exports.createListing = async (req, res) => {
   // Retrieve followers' emails
   const registeredUsers = await User.find({ _id: { $in: club.followers } });
   const emails = registeredUsers.map((user) => user.email);
-  console.log(newListing._id);
 
   // Send emails to all followers
   const pageLink = `${req.protocol}://${req.get("host")}/clubs/${
