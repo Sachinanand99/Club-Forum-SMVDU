@@ -5,7 +5,6 @@ a:link, a:visited, a:hover, a:active {
 .pre-content{
     white-space: pre-wrap;
     word-wrap: break-word;
-    font-family:"Varela Round", "sans-serif";
 }
 /* navbar */
 nav{

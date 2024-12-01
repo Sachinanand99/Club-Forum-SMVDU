@@ -14,7 +14,7 @@
       <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.image.fileName %>">
     <% } %>
     <div class="card-body">
-      <h5 class="card-title"><%= listing.title %></h5>
+      <h5 class="card-title" style="font-weight: 600; font-size: larger;"><%= listing.title %></h5>
       <p class="card-text"><div class="pre-content"><%= listing.description %></div></p>
       <p class="text-muted">Posted by <%= listing.author.username %> on <%= listing.createdAt.toDateString() %></p>
       <% if (isAdmin){ %>
