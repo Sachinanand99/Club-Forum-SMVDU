@@ -1,5 +1,20 @@
+const { isAdmin } = require("../middleware");
 const Club = require("../models/club");
 const Listing = require("../models/listing");
+
+getAdminEmails = async (clubId) => {
+  try {
+    const club = await Club.findById(clubId);
+    if (!club) {
+      console.log(`Club ID ${clubId} not found!`);
+    }
+    const adminEmails = club.admins.map((admin) => admin.email).join(", ");
+    return adminEmails;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 module.exports.index = async (req, res) => {
   const allClubs = await Club.find({});
@@ -8,13 +23,27 @@ module.exports.index = async (req, res) => {
 
 module.exports.showClub = async (req, res) => {
   let { id } = req.params;
-  const club = await Club.findById(id)
+  const club = await Club.findById(id);
+
   if (!club) {
-    req.flash("error", "Club you requested for does not exist!");
-    res.redirect("/Clubs");
+    req.flash("error", "The club you requested for does not exist!");
+    return res.redirect("/clubs");
   }
-  res.render("clubs/showClubs.ejs", { club });
+
+  let isAdmin = false;
+  if (req.user) {
+    let clubAdmins = await getAdminEmails(id);
+    isAdmin =
+      process.env.ADMIN_LIST.includes(req.user.email) ||
+      clubAdmins.includes(req.user.email);
+  }
+
+  res.render("clubs/showClubs", {
+    club,
+    isAdmin: isAdmin, 
+  });
 };
+
 
 module.exports.renderNewClubForm = (req, res) => {
     res.render("clubs/newClub.ejs")
@@ -59,7 +88,7 @@ module.exports.renderNewClubEditForm = async (req, res) => {
     req.flash("error", "Club you requested for does not exist!");
     res.redirect("/clubs");
   }
-res.render("clubs/editClub.ejs", {club});
+res.render("clubs/editClub.ejs", { club  });
 }
 
 

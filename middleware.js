@@ -9,11 +9,11 @@ const ExpressError = require("./utils/ExpressError.js");
 const Club = require("./models/club.js");
 const Comment = require("./models/comment.js");
 
-const getAdminEmails = async (clubId) => {
+getAdminEmails = async (clubId) => {
   try {
     const club = await Club.findById(clubId);
     if (!club) {
-      new ExpressError(400, "Club not found");
+      console.log(`Club ID ${clubId} not found!`);
     }
 
     const adminEmails = club.admins.map((admin) => admin.email).join(", ");
@@ -24,7 +24,7 @@ const getAdminEmails = async (clubId) => {
   }
 };
 
-exports.ensureAuthenticated = (req, res, next) => {
+module.exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -36,7 +36,7 @@ exports.ensureAuthenticated = (req, res, next) => {
 module.exports.validateClub = (req, res, next) => {
   let { error } = clubSchema.validate(req.body);
   if (error) {
-    new ExpressError(400, error);
+    next(new ExpressError(400, error));
   }
   next();
 };
@@ -44,7 +44,7 @@ module.exports.validateClub = (req, res, next) => {
 module.exports.validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
   if (error) {
-    new ExpressError(400, error);
+    next(new ExpressError(400, error));
   }
   next();
 };
@@ -52,7 +52,7 @@ module.exports.validateListing = (req, res, next) => {
 module.exports.validateComment = (req, res, next) => {
   let { error } = commentSchema.validate(req.body);
   if (error) {
-    new ExpressError(400, error);
+    next(new ExpressError(400, error));
   }
   next();
 };
@@ -60,7 +60,7 @@ module.exports.validateComment = (req, res, next) => {
 module.exports.validateReply = (req, res, next) => {
   let { error } = replyCommentSchema.validate(req.body);
   if (error) {
-    new ExpressError(400, error);
+    next(new ExpressError(400, error));
   }
   next();
 };
@@ -76,13 +76,13 @@ module.exports.isAdmin = async (req, res, next) => {
     ) {
       next();
     } else {
-      new ExpressError(403, "Access Denied!");
+      next(new ExpressError(403, "Access Denied!"));
     }
   } else {
     if (clubAdmins.includes(res.locals.currUser.email)) {
       next();
     } else {
-      new ExpressError(403, "Access Denied!");
+      next(new ExpressError(403, "Access Denied!"));
     }
   }
 };
@@ -93,10 +93,10 @@ module.exports.isSuperAdmin = (req, res, next) => {
     if (process.env.ADMIN_LIST.includes(res.locals.currUser.email)) {
       next();
     } else {
-      new ExpressError(403, "Access Denied!");
+      next(new ExpressError(403, "Access Denied!"));
     }
   } else {
-    new ExpressError(403, "Access Denied!");
+    next(new ExpressError(403, "Access Denied!"));
   }
 };
 
