@@ -12,11 +12,7 @@
                     <div class="info">
                         <div class="title"><%= listing.title %>
                         </div>
-                        <div class="desc">
-                            <%= listing.description %>
-                            @<%= listing.author %>
-                            <%= listing.createdAt %>
-                        </div>
+                              <p class="text-muted">Posted by <%= listing.author.username %> on <%= listing.createdAt.toDateString() %></p>
                     </div>
                 </a>
                 </div>
