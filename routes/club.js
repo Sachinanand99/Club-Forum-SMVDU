@@ -15,6 +15,7 @@ const {
   isSuperAdmin,
   validateReply,
   isAuthor,
+  increaseCount,
 } = require("../middleware");
 
 const { storage } = require("../cloudConfig.js");
@@ -58,7 +59,10 @@ router.get(
 
 router
   .route("/:id")
-  .get(wrapAsync(clubController.showClub))
+  .get(
+    increaseCount,
+    wrapAsync(clubController.showClub)
+  )
   .put(
     ensureAuthenticated,
     isAdmin,

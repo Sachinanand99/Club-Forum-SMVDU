@@ -5,7 +5,7 @@ const {
   replyCommentSchema,
 } = require("./schema.js");
 const express = require("express");
-const ExpressError = require("./utils/ExpressError.js")
+const ExpressError = require("./utils/ExpressError.js");
 const Club = require("./models/club.js");
 const Comment = require("./models/comment.js");
 
@@ -13,7 +13,7 @@ const getAdminEmails = async (clubId) => {
   try {
     const club = await Club.findById(clubId);
     if (!club) {
-      throw new ExpressError(400, "Club not found");
+      new ExpressError(400, "Club not found");
     }
 
     const adminEmails = club.admins.map((admin) => admin.email).join(", ");
@@ -36,7 +36,7 @@ exports.ensureAuthenticated = (req, res, next) => {
 module.exports.validateClub = (req, res, next) => {
   let { error } = clubSchema.validate(req.body);
   if (error) {
-    throw new ExpressError(400, error);
+    new ExpressError(400, error);
   }
   next();
 };
@@ -44,23 +44,23 @@ module.exports.validateClub = (req, res, next) => {
 module.exports.validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
   if (error) {
-    throw new ExpressError(400, error);
+    new ExpressError(400, error);
   }
   next();
 };
 
 module.exports.validateComment = (req, res, next) => {
-   let { error } = commentSchema.validate(req.body);
-   if (error) {
-     throw new ExpressError(400, error);
-   }
-   next();
-}
+  let { error } = commentSchema.validate(req.body);
+  if (error) {
+    new ExpressError(400, error);
+  }
+  next();
+};
 
 module.exports.validateReply = (req, res, next) => {
   let { error } = replyCommentSchema.validate(req.body);
   if (error) {
-    throw new ExpressError(400, error);
+    new ExpressError(400, error);
   }
   next();
 };
@@ -70,35 +70,35 @@ module.exports.isAdmin = async (req, res, next) => {
   let clubId = req.params.id;
   let clubAdmins = await getAdminEmails(clubId);
   if (process.env.ADMIN_LIST) {
-    if (process.env.ADMIN_LIST.includes(res.locals.currUser.email) || clubAdmins.includes(res.locals.currUser.email)) {
+    if (
+      process.env.ADMIN_LIST.includes(res.locals.currUser.email) ||
+      clubAdmins.includes(res.locals.currUser.email)
+    ) {
       next();
     } else {
-      throw new ExpressError(403, "Access Denied!");
+      new ExpressError(403, "Access Denied!");
     }
   } else {
     if (clubAdmins.includes(res.locals.currUser.email)) {
       next();
     } else {
-      throw new ExpressError(403, "Access Denied!");
+      new ExpressError(403, "Access Denied!");
     }
   }
-}
+};
 
 module.exports.isSuperAdmin = (req, res, next) => {
   console.log("isSuperAdmin function ran");
   if (process.env.ADMIN_LIST) {
-    if (
-      process.env.ADMIN_LIST.includes(res.locals.currUser.email) 
-    ) {
+    if (process.env.ADMIN_LIST.includes(res.locals.currUser.email)) {
       next();
     } else {
-      throw new ExpressError(403, "Access Denied!");
+      new ExpressError(403, "Access Denied!");
     }
+  } else {
+    new ExpressError(403, "Access Denied!");
   }
-  else {
-      throw new ExpressError(403, "Access Denied!");
-  }
-}
+};
 
 module.exports.isAuthor = async (req, res, next) => {
   let { id3 } = req.params;
@@ -109,4 +109,15 @@ module.exports.isAuthor = async (req, res, next) => {
     return res.redirect(`/clubs/${req.params.id}/listings/${req.params.id2}`);
   }
   next();
-}
+};
+
+module.exports.increaseCount = async (req, res, next) => {
+  let { id } = req.params;
+  try {
+    await Club.findByIdAndUpdate(id, { $inc: { views: 1 } });
+    next();
+  } catch (err) {
+    console.log(`Error increase the count on page club id ${id}`);
+    next();
+  }
+};

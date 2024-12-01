@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") %>
+
     <div>
         <div class="heading-club">
             <div class="heading-club-image" style="background-image: url('<%= club.image.url %>');">
@@ -85,5 +86,8 @@
                     Delete Club
                 </button>
             </form>
+        </div>
+        <div class="club-views">
+            Total club Views : <%= club.views %>
         </div>
     </div>

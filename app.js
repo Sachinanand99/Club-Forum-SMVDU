@@ -41,37 +41,37 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-const store = mongoStore.create({
-  mongoUrl: dbUrl,
-  crypto: {
+  const store = mongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+      secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 60 * 60,
+  });
+
+  store.on("error", (err) => {
+    console.log("ERROR IN MONGO SESSION STORE", err);
+  });
+
+
+  const sessionOptions = {
+    store,
     secret: process.env.SECRET,
-  },
-  touchAfter: 24 * 60 * 60,
-});
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+  };
 
-store.on("error", (err) => {
-  console.log("ERROR IN MONGO SESSION STORE", err);
-});
-
-
-const sessionOptions = {
-  store,
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-  },
-};
-
-const User = require("./models/user")
+  const User = require("./models/user")
 
 
-app.use(session(sessionOptions));
-app.use(passport.initialize());
-app.use(passport.session());
+  app.use(session(sessionOptions));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 passport.use(
   new GoogleStrategy(
