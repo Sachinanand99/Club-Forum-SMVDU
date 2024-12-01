@@ -17,7 +17,7 @@ getAdminEmails = async (clubId) => {
 };
 
 module.exports.index = async (req, res) => {
-  const allClubs = await Club.find({});
+  const allClubs = await Club.find({}).sort({ __v: -1 });
     res.render("clubs/index.ejs", {allClubs});
 }
 
