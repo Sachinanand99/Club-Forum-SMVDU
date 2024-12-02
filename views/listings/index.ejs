@@ -9,7 +9,7 @@
   <div class="carousel-inner">
     <% for (let i=0; i < clubs.length; i++) { %> <% if (clubs[i].image.url) { %>
     <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-      <img src="<%= clubs[i].image.url %>" class="d-block w-100" alt="..." />
+      <img src="<%= clubs[i].image.url %>" class="d-block w-50" alt="..." />
     </div>
     <% } %> <% } %>
   </div>
