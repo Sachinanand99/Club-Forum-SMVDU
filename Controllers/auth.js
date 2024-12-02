@@ -24,11 +24,12 @@ exports.googleAuthSuccess = (req, res) => {
   req.flash("success", "Successfully logged in!");
   res.send(`
     <script>
-      window.opener.location.href = '/listings';
+      window.opener.location.reload();
       window.close();
     </script>
   `);
 };
+
 
 exports.logout = (req, res, next) => {
   req.logout((err) => {
