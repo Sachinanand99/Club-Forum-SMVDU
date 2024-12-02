@@ -49,7 +49,8 @@
           on <%= comment.createdAt ? comment.createdAt.toDateString() : 'Unknown date' %></p>
 
           <!-- Conditional Check for Update/Delete Buttons -->
-          <% if (comment.author && comment.author._id.toString() === currUser._id.toString()) { %>
+           <% if (currUser){ %>
+            <% if (comment.author && comment.author._id.toString() === currUser._id.toString()) { %>
             <!-- Update Comment Form -->
             <button class="btn btn-sm btn-outline-secondary edit-button" data-id="<%= comment._id %>">Edit</button>
             <form class="edit-form mt-3" action="<%= id2 %>/comments/<%= comment._id %>?_method=PUT" method="post" style="display: none;">
@@ -65,6 +66,8 @@
               <button type="submit" class="btn btn-danger btn-sm">Delete Comment</button>
             </form>
           <% } %>
+           <% }%>
+          
 
           <!-- Reply Button and Form -->
           <button class="btn btn-sm btn-outline-secondary reply-button" data-id="<%= comment._id %>">Reply</button>

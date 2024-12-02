@@ -3,6 +3,7 @@ const initData = require("./data.js");
 const Club = require("../models/club.js");
 const Listing = require("../models/listing.js");
 
+// for development purpose only.
 const MONGO_URL =
   "mongodb://localhost:27017/clubs";
 

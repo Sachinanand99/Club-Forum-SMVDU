@@ -67,6 +67,8 @@ const ClubData = [
         email: "22bcs070@smvdu.ac.in",
       },
     ],
+    views: 0,
+    followers: [],
   },
   {
     title: "AET Club",
@@ -75,6 +77,24 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/AET-CLUB-Poster-1-1_vdoyas",
     },
     description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "Atelier Multimedia Club",
@@ -83,6 +103,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/Atelier-New-Banner-1-1_eoclvx",
     },
     description: "Create and edit multimedia projects.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "Artisans Art Club",
@@ -91,6 +130,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/aaaaa-1-1_syx8o6",
     },
     description: "Express creativity through various art forms.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "VYOM Astronomy Club",
@@ -99,6 +157,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/Presents-1-1_wywwui",
     },
     description: "Discover the wonders of the universe.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "Google Developer Student Club",
@@ -107,6 +184,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/aGoogle-Developers-Student-Clubs-1_lusnko",
     },
     description: "Develop skills with Google technologies.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "Zenith: The Club",
@@ -115,6 +211,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/aPicsart_23-10-12_23-48-58-524-1_m1nnkk",
     },
     description: "Reach new heights in personal development.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "SAE Club",
@@ -123,6 +238,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/coverpage-1_p0zvuk",
     },
     description: "Engage in automotive engineering projects.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "AI Club",
@@ -131,6 +265,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/471e7f0a-6916-11ef-bf25-0242ac110002-1_xtdisc",
     },
     description: "Explore artificial intelligence innovations.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
   {
     title: "Tarang Club",
@@ -139,6 +292,25 @@ const ClubData = [
       fileName: "SMVDU_CLUBS/TARANG-1_v0xm5n",
     },
     description: "Celebrate cultural diversity and traditions.",
+    description: "Explore advanced engineering technologies.",
+    about: [],
+    coordinators: [
+      {
+        img: {
+          url: "https://res.cloudinary.com/dhuhhordo/image/upload/v1727562724/SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld.webp",
+          fileName: "SMVDU_CLUBS/Vinay-Vashist-1-150x150_lcqfld",
+        },
+        name: "Vinay Vashist",
+        rollNo: "21bcs105",
+      },
+    ],
+    admins: [
+      {
+        email: "22bcs070@smvdu.ac.in",
+      },
+    ],
+    views: 0,
+    followers: [],
   },
 ];
 

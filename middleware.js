@@ -28,7 +28,7 @@ module.exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash("error", "You must be logged in to create new Club.");
+  req.flash("error", "You must be logged in.");
   req.session.redirectUrl = req.originalUrl;
   return res.redirect("/auth");
 };
