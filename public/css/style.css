@@ -153,6 +153,13 @@ footer .fa-brands{
 
 /* club specific pages */
 
+.heading-club-image {
+    background-image: url('/assets/club_background.png');
+    background-size: 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 4rem;
+}
 
 .heading-club .heading-club-image h2{
     text-align: center;
@@ -170,8 +177,6 @@ footer .fa-brands{
     width: 100%;
     margin-bottom: 20px;
     margin-inline: 120px;
-    
-   
 }
 
 .action button{
@@ -179,26 +184,6 @@ footer .fa-brands{
     padding-inline: 50px !important;
 }
 
-.about-post{
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    right: 0;
-
-}
-
-.about-post h3{
-    width: 70%;
-    float: left;
-    font-family:"Oswald", "sans-serif" ;
-    color:darkslategrey;
-    font-size: 35px;
-}
-
-.about-post button{
-    width: 25%;
-    float: inherit;
-}
 
 .accordion-button{
     background-color: #f3f3f3;
@@ -229,14 +214,31 @@ footer .fa-brands{
     object-fit: cover;
 }
 
-.club-index-v1 h2{
-    font-weight: 700;
-    font-size: 50px;
-    color: #102449;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-family: 'Times New Roman', Times, serif;
+.heading-club-btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.post-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.club-btn-follow,
+.club-btn-view,
+.club-btn-new {
+    height: 2.5rem;
+    width: 12rem;
+    margin: 0.4rem;
+}
+
+.follow-container {
+    display: flex;
+    align-items: center;
+}
+
+
 
 .accordion-button:not(.collapsed){
     background-color: #fff !important;
@@ -246,13 +248,13 @@ footer .fa-brands{
     box-shadow: none !important;
 }
 
-.description h2{
+.club-page-heading{
     font-size: 30px;
     font-family:"sans-serif", "Oswald";
     color: rgba(0, 0, 139, 0.881);
 }
 .description h3{
-    font-size: 30px;
+    font-size: 20px;
     font-family:"sans-serif", "Oswald";
     color: rgba(0, 0, 139, 0.881);
     margin-top: 10px;
@@ -387,6 +389,7 @@ footer .fa-brands{
     font-size: medium;
 }
 
+/* home page */
 .home-main-heading{
     height: 40vh;
     display: flex;
@@ -416,4 +419,13 @@ footer .fa-brands{
         margin-top: 30px;
         margin-bottom: 30px;
         font-family: 'Times New Roman', Times, serif;
+}
+
+.club-index-v1 h2 {
+    font-weight: 700;
+    font-size: 50px;
+    color: #102449;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman', Times, serif;
 }
