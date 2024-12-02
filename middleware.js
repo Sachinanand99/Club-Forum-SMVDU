@@ -87,24 +87,28 @@ module.exports.isAdmin = async (req, res, next) => {
 };
 
 module.exports.isSuperAdmin = (req, res, next) => {
-  if (process.env.ADMIN_LIST) {
-    if (process.env.ADMIN_LIST.includes(res.locals.currUser.email)) {
-      next();
+  try {
+    if (process.env.ADMIN_LIST) {
+      if (process.env.ADMIN_LIST.includes(res.locals.currUser.email)) {
+        next();
+      } else {
+        next(new ExpressError(403, "Access Denied!"));
+      }
     } else {
       next(new ExpressError(403, "Access Denied!"));
     }
-  } else {
-    next(new ExpressError(403, "Access Denied!"));
+  } catch (err) {
+    next(new ExpressError(400, "Something wrong occurred!"));
   }
 };
 
 module.exports.isAuthor = async (req, res, next) => {
   let { id3 } = req.params;
   let comment = await Comment.findById(id3);
-  if (!comment.author.equals(res.locals.currUser._id)) {
-    req.flash("error", "You are not the author of this comment!");
-    return res.redirect(`/clubs/${req.params.id}/listings/${req.params.id2}`);
-  }
+    if (!comment.author.equals(res.locals.currUser._id)) {
+      req.flash("error", "You are not the author of this comment!");
+      return res.redirect(`/clubs/${req.params.id}/listings/${req.params.id2}`);
+    }
   next();
 };
 

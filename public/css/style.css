@@ -319,6 +319,7 @@ footer .fa-brands{
     background-color: #fff;
     width: 100%;
     height: fit-content;
+    padding-bottom: 2rem;
     margin: 0;
 }
 
@@ -327,21 +328,21 @@ footer .fa-brands{
 }
 
 .post-box .post .image img {
-    height: 500px;
+    height: 34rem;
     width: 100%;
     object-fit: contain;
 }
 
 .post-box .post .info {
-    padding: 15px;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 150px;
+    height: 9rem;
 }
 
 .post-box .post .info .title {
-    font-size: 1.2em;
+    font-size: 0.6em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
@@ -372,4 +373,35 @@ footer .fa-brands{
 }
 .text-muted{
     font-size: medium;
+}
+
+.home-main-heading{
+    height: 40vh;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+}
+.carousel-inner {
+    max-height: 430px;
+    /* Set the max height for the carousel */
+    overflow: hidden;
+    /* Prevent overflow of images */
+}
+
+.carousel-img {
+    width: 700px;
+    /* Set the fixed width for images */
+    height: 430px;
+    /* Set the fixed height for images */
+    object-fit: cover;
+    /* Ensure images cover the specified dimensions without distortion */
+}
+
+.home-h2-listing{
+    font-weight: 700;
+        font-size: 50px;
+        color: #102449;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-family: 'Times New Roman', Times, serif;
 }
