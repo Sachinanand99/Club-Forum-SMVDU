@@ -92,12 +92,13 @@ module.exports.renderEditListingForm = async (req, res) => {
   }
   res.render("listings/editListing.ejs", { listing, club, originalImageUrl });
 };
-
 module.exports.viewListing = async (req, res) => {
   try {
     const { id, id2 } = req.params;
     const listing = await Listing.findById(id2).populate("author");
-    const comments = await Comment.find({ listingId: id2 });
+    const comments = await Comment.find({ listingId: id2 })
+      .populate("author")
+      .sort({ createdAt: -1 });
     let isAdmin = false;
     if (req.user) {
       let clubAdmins = await getAdminEmails(id);
