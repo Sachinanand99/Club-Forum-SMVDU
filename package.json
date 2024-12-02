@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "Charanpreet Kaur, Koripalli Venkata Ramani, Sachin Anand",
   "license": "ISC",
-  "description": "",
+  "description": "Project for smvdu mini project.",
   "dependencies": {
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
