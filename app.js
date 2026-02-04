@@ -80,10 +80,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:
-        process.env.NODE_ENV === "Production"
-          ? `${process.env.WEB_URL}/auth/google/callback`
-          : "http://localhost:8080/auth/google/callback",
+      callbackURL: "https://club-forum-smvdu.vercel.app/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       const newUser = {
