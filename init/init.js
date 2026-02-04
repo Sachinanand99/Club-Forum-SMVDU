@@ -5,7 +5,7 @@ const Listing = require("../models/listing.js");
 
 // for development purpose only.
 const MONGO_URL =
-  "mongodb://localhost:27017/clubs";
+  "url of mongodb";
 
 main()
   .then(() => {

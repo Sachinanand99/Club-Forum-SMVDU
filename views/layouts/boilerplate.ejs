@@ -35,15 +35,6 @@
       crossorigin="anonymous"
     />
 
-    <!-- Cloudflare Web Analytics -->
-    <% if (process.env.CLOUDFLARE_TOKEN){ %>
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "<%= process.env.CLOUDFLARE_TOKEN%>"}'
-    ></script>
-    <% } %>
-    <!-- End Cloudflare Web Analytics -->
   </head>
   <body>
     <%- include("../includes/navbar.ejs") %>

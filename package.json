@@ -1,17 +1,21 @@
 {
+  "engines": {
+    "node": "24.7.0"
+  },
   "name": "clubmanagement",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Project for smvdu club management.",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init": "cd init && node init.js",
     "dev": "nodemon app.js",
-    "prod": "node app.js"
+    "prod": "node app.js",
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "Charanpreet Kaur, Koripalli Venkata Ramani, Sachin Anand",
+  "author": "Sachin Anand, Charanpreet Kaur, Koripalli Venkata Ramani",
   "license": "ISC",
-  "description": "Project for smvdu mini project.",
   "dependencies": {
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",

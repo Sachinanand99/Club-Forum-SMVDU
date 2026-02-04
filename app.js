@@ -43,9 +43,9 @@ app.use(express.static(path.join(__dirname, "/public")));
 
   const store = mongoStore.create({
     mongoUrl: dbUrl,
-    crypto: {
-      secret: process.env.SECRET,
-    },
+    // crypto: {
+    //   secret: process.env.SECRET,
+    // },
     touchAfter: 24 * 60 * 60,
   });
 
@@ -69,7 +69,9 @@ app.use(express.static(path.join(__dirname, "/public")));
   const User = require("./models/user")
 
 
-  app.use(session(sessionOptions));
+app.use(session(sessionOptions));
+  app.use(flash());
+
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -120,7 +122,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
